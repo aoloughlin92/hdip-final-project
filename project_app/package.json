@@ -1,0 +1,30 @@
+{
+  "name": "project_app",
+  "version": "1.0.0",
+  "description": "Final Application Project for HDIP in Computer Science ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aoloughlin92/hdip-final-project.git"
+  },
+  "author": "AnneMarie OLoughlin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aoloughlin92/hdip-final-project/issues"
+  },
+  "homepage": "https://github.com/aoloughlin92/hdip-final-project#readme",
+  "dependencies": {
+    "handlebars": "^4.7.7",
+    "hapi": "^18.1.0",
+    "inert": "^5.1.3",
+    "prettier": "^2.2.1",
+    "vision": "^5.4.4"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120
+  }
+}

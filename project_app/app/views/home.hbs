@@ -1,0 +1,20 @@
+<nav class="ui inverted menu">
+    <header class="header item"><a href="/"> Wedoo </a></header>
+    <div class="right menu">
+        <a class="active item" href="/home"> Create</a>
+        <a class="item" href="/todolist"> Todo List</a>
+        <a class="item" href="/logout"> Logout</a>
+    </div>
+</nav>
+
+<section class="ui raised segment">
+
+    {{> createtodo }}
+
+    <div class="ui  divider"></div>
+
+    <div class="ui teal progress" data-percent="${progress}" id="mainprogress">
+        <div class="bar"></div>
+    </div>
+
+</section>
