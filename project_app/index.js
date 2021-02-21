@@ -1,6 +1,6 @@
 'use strict';
 
-const Hapi = require('hapi');
+const Hapi = require('@hapi/hapi');
 
 const server = Hapi.server({
   port: 3000,
@@ -9,13 +9,13 @@ const server = Hapi.server({
 
 server.bind({
   users: {},
-  todos: [],
-  currentUser:{}
+  todos: []
 });
 
 async function init() {
-  await server.register(require('inert'));
-  await server.register(require('vision'));
+  await server.register(require('@hapi/inert'));
+  await server.register(require('@hapi/vision'));
+  await server.register(require('@hapi/cookie'));
 
   server.views({
     engines: {
@@ -28,6 +28,17 @@ async function init() {
     layout: true,
     isCached: false
   });
+
+  server.auth.strategy('session', 'cookie', {
+    cookie: {
+      name: 'wedoo',
+      password: 'password-should-be-32-characters',
+      isSecure: false
+    },
+    redirectTo: '/',
+  });
+
+  server.auth.default('session');
 
   server.route(require('./routes'));
   await server.start();

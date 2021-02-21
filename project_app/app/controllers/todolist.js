@@ -17,7 +17,8 @@ const Donations = {
   createToDo: {
     handler: function(request, h){
       const data = request.payload;
-      data.creator = this.currentUser;
+      var creatorEmail = request.auth.credentials.id;
+      data.creator = this.users[creatorEmail];
       this.todos.push(data);
       return h.redirect('/todolist');
     }
