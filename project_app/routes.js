@@ -12,6 +12,8 @@ module.exports = [
   { method: 'POST', path: '/createToDo', config: TodoList.createToDo },
   { method: 'GET', path: '/home', config: TodoList.home },
   { method: 'GET', path: '/todolist', config: TodoList.todolist },
+  { method: 'GET', path: '/settings', config: Accounts.showSettings },
+  { method: 'POST', path: '/settings', config: Accounts.updateSettings },
   {
     method: 'GET',
     path: '/{param*}',
