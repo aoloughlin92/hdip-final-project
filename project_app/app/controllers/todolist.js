@@ -1,28 +1,37 @@
 'use strict';
 
-const Donations = {
+const User = require('../models/user');
+const Todo = require('../models/todo');
+
+const TodoList = {
   home: {
     handler: function(request, h) {
       return h.view('home', { title: 'Wedoo' });
     }
   },
   todolist: {
-    handler: function(request, h) {
+    handler: async function(request, h) {
+      const todos = await Todo.find().populate('creator').lean();
       return h.view('todolist', {
         title: 'Todos so far',
-        todos: this.todos
+        todos: todos
       });
     }
   },
   createToDo: {
-    handler: function(request, h){
+    handler: async function(request, h){
+      const id = request.auth.credentials.id;
+      const user = await User.findById(id);
       const data = request.payload;
-      var creatorEmail = request.auth.credentials.id;
-      data.creator = this.users[creatorEmail];
-      this.todos.push(data);
+      const newTodo = new Todo({
+        amount:data.amount,
+        method: data.method,
+        creator: user._id
+      });
+      await newTodo.save();
       return h.redirect('/todolist');
     }
   }
 };
 
-module.exports = Donations;
+module.exports = TodoList;
