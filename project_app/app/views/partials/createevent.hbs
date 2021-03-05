@@ -1,0 +1,38 @@
+<section class="ui raised segment">
+    <h2>Create An Event</h2>
+    <div class="ui grid ">
+        <div class="ui form twenty wide column">
+            <div class="ui stacked segment">
+                <form action="/createEvent" method="POST">
+                    <div class="two fields">
+                        <div class="field">
+                            <div class="text">Title<br/></div>
+                            <div class="ui input">
+                                <input type="text" name="title" placeholder="Event title...">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="text">Date<br/></div>
+                            <div class="ui calendar">
+                                <div class="ui input" name="date">
+                                    <input type="date" name="date" placeholder="Date">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="one field">
+                        <div class="field">
+                            <div class="text">Further Information<br/></div>
+                            <div class="ui multiline input">
+                                <textarea name="info" placeholder="Event information...">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="ui blue submit button">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+

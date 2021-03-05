@@ -1,8 +1,16 @@
 'use strict';
 
 const Hapi = require('@hapi/hapi');
+const hb = require('handlebars');
+const moment = require("moment");
 
-require('dotenv').config();
+const dotenv = require('dotenv');
+
+const result = dotenv.config();
+if (result.error) {
+  console.log(result.error.message);
+  process.exit(1);
+}
 
 const server = Hapi.server({
   port: 3000,
@@ -16,6 +24,8 @@ async function init() {
   await server.register(require('@hapi/vision'));
   await server.register(require('@hapi/cookie'));
 
+  server.validator(require('@hapi/joi'))
+
   server.views({
     engines: {
       hbs:require('handlebars')
@@ -27,6 +37,7 @@ async function init() {
     layout: true,
     isCached: false
   });
+
 
 
 
@@ -50,5 +61,11 @@ process.on('unhandledRejection', err => {
   console.log(err);
   process.exit(1);
 });
+
+  hb.registerHelper("formatDate", function(date) {
+    const formatToUse = ("dddd DD/MMM/YYYY");
+    return moment(date).format(formatToUse);
+  });
+
 
 init();
