@@ -1,11 +1,12 @@
 <section class="ui raised segment">
     <div class="ui grid">
-        <article class="eight wide column">
+        <article class="twenty wide column">
             <table class="ui celled table segment">
                 <thead>
                 <tr>
                     <th>Title</th>
                     <th>Date</th>
+                    <th>View</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -13,6 +14,7 @@
                     <tr>
                         <td> {{title}} </td>
                         <td> {{formatDate date}}</td>
+                        <td><a href="/event/{{_id}}"  class="ui icon button"> <i class="icon folder open"></i></a></td>
                     </tr>
                 {{/each}}
                 </tbody>

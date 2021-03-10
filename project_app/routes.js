@@ -1,6 +1,6 @@
-const Todos = require('./app/controllers/todos');
+const Todos = require('./app/controllers/wedoo');
 const Accounts = require('./app/controllers/accounts');
-const TodoList = require('./app/controllers/todolist');
+const TodoList = require('./app/controllers/todos');
 const Events = require('./app/controllers/events');
 
 module.exports = [
@@ -13,6 +13,7 @@ module.exports = [
   { method: 'POST', path: '/createToDo', config: TodoList.createToDo },
   { method: 'POST', path: '/createEvent', config: Events.createEvent },
   { method: 'GET', path: '/events', config: Events.showEvents },
+  { method: 'GET', path: '/event/{id}', config: Events.viewEvent },
   { method: 'GET', path: '/home', config: TodoList.home },
   { method: 'GET', path: '/todolist', config: TodoList.todolist },
   { method: 'GET', path: '/settings', config: Accounts.showSettings },

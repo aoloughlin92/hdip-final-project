@@ -6,11 +6,11 @@ const Event = require('../models/event');
 const Events = {
   showEvents: {
     handler: async function(request, h) {
-        const events = await Event.find().lean();
-        return h.view('events', {
-          title: 'Todos so far',
-          events: events
-        });
+      const events = await Event.find().lean();
+      return h.view('events', {
+        title: 'Todos so far',
+        events: events
+      });
     }
   },
   createEvent: {
@@ -30,7 +30,16 @@ const Events = {
         return h.view('main', {errors: [{ message: err.message}] });
       }
     }
-  }
+  },
+  viewEvent: {
+    handler: async function(request, h) {
+      let event = await Event.findOne({ _id: request.params.id }).lean();
+      return h.view('event', {
+        title: event.title,
+        event: event
+      });
+    }
+  },
 
 };
 

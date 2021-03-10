@@ -1,17 +1,51 @@
+'use strict';
+
+const User = require('../models/user');
+const Todo = require('../models/todo');
+const dotenv = require('dotenv');
+
 const Todos = {
-  index: {
-    handler: function(request, h){
-      return h.view('main',{title: 'Welcome to Wedoo'});
+  home: {
+    handler: function(request, h) {
+      const result = dotenv.config();
+      if (result.error) {
+        console.log(result.error.message);
+        process.exit(1);
+      }
+      const paypalurl= process.env.paypalurl;
+      return h.view('home', {
+        title: 'Wedoo',
+        paypalurl: paypalurl
+      });
     }
   },
-  signup: {
-    handler: function(request, h) {
-      return h.view('signup', { title: 'Sign up for Wedoo' });
+  todolist: {
+    handler: async function(request, h) {
+      const todos = await Todo.find().populate('assigned').lean();
+      return h.view('todolist', {
+        title: 'Todos so far',
+        todos: todos
+      });
     }
   },
-  login: {
-    handler: function(request, h) {
-      return h.view('login', { title: 'Login to Wedoo' });
+  createToDo: {
+    handler: async function(request, h){
+      try {
+        const id = request.auth.credentials.id;
+        const user = await User.findById(id);
+        const data = request.payload;
+        console.log(data);
+        const newTodo = new Todo({
+          title: data.title,
+          budget: data.budget,
+          assigned: user._id,
+          status: data.status
+        });
+        await newTodo.save();
+        return h.redirect('/todolist');
+      }catch{
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
     }
   }
 };

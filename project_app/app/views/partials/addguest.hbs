@@ -1,0 +1,32 @@
+<section class="ui raised segment">
+    <h2>Add Guest</h2>
+    <div class="ui grid ">
+        <div class="ui form twenty wide column">
+            <div class="ui stacked segment">
+                <form action="/addGuest" method="POST">
+                    <div class="two fields">
+                        <div class="field">
+                            <div class="text">First Name<br/></div>
+                            <div class="ui input">
+                                <input type="text" name="fname">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="text">Last Name<br/></div>
+                            <div class="ui input">
+                                <input type="text" name="lname">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="text">Email Address<br/></div>
+                            <div class="ui input">
+                                <input type="text" name="email">
+                            </div>
+                        </div>
+                    </div>
+                    <button class="ui blue submit button">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

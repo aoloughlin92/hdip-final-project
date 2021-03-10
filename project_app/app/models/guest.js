@@ -8,6 +8,12 @@ const guestSchema = new Schema({
   firstName: String,
   lastName: String,
   type: String,
+  email: String,
+  address1: String,
+  address2: String,
+  address3: String,
+  county: String,
+  postcode: String,
   rsvpStatus: String,
   donation: Number,
   plusOne: [{
