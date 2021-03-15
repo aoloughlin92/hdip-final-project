@@ -1,0 +1,12 @@
+<nav class="ui vertical pointing menu" style="width: 100%; height: 100%; align-items: start">
+    <div>
+        <a id="event"   class= "item" href="/event/{{event._id}}"> Home</a>
+        <a id="todolist" class= "item" href="/todolist/{{event._id}}"> To Do List</a>
+        <a id="guestlist" class= "item" href="/guestlist/{{event._id}}"> Guestlist</a>
+        <a id="budget" class= "item" href="/budget/{{event._id}}"> Budget</a>
+    </div>
+</nav>
+
+<script>
+    $("#{{_id}}").addClass("active item");
+</script>

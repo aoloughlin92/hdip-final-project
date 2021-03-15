@@ -6,7 +6,7 @@
                 <tr>
                     <th>Title</th>
                     <th>Date</th>
-                    <th>View</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -14,7 +14,9 @@
                     <tr>
                         <td> {{title}} </td>
                         <td> {{formatDate date}}</td>
-                        <td><a href="/event/{{_id}}"  class="ui icon button"> <i class="icon folder open"></i></a></td>
+                        <td><a href="/event/{{_id}}"  class="ui icon button"> <i class="icon folder open"></i></a>
+                            <a href="/delete/{{_id}}"  class="ui icon button"> <i class="icon trash"></i></a>
+                        </td>
                     </tr>
                 {{/each}}
                 </tbody>

@@ -1,17 +1,14 @@
-{{> mainmenu _id="events" }}
-
-<h1> {{event.title}}</h1>
+{{> mainmenu _id="event" }}
+<h1>{{event.title}}</h1>
 <section class="ui stacked segment">
     <div class="ui grid">
         <aside class="three wide column" style="background: lightgrey">
-            {{> verticlemenu _id="event" }}
+            {{> verticlemenu _id="guestlist" }}
         </aside>
         <article class="twelve wide column">
-
-            {{>eventview}}
-
+            {{> guestsview }}
             <div class="ui  divider"></div>
-            {{>addguest}}
+            {{> addguest}}
         </article>
     </div>
 </section>

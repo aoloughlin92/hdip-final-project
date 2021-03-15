@@ -31,6 +31,16 @@ const Events = {
       }
     }
   },
+  deleteEvent:{
+    handler: async function(request, h) {
+      try {
+        const response = await Event.findOneAndDelete({_id: request.params.id});
+        return h.redirect('/events');
+      }catch(err){
+        return h.redirect('/events', { errors: [{ message: err.message }] });
+      }
+    }
+  },
   viewEvent: {
     handler: async function(request, h) {
       let event = await Event.findOne({ _id: request.params.id }).lean();

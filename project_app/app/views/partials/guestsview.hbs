@@ -1,0 +1,22 @@
+<section class="ui raised segment">
+    <div class="ui grid">
+        <article class="twenty wide column">
+            <table class="ui celled table segment">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each guests}}
+                    <tr>
+                        <td> {{firstName}} {{lastName}} </td>
+                        <td> {{email}} </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </article>
+    </div>
+</section>

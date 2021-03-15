@@ -17,7 +17,7 @@ const guestSchema = new Schema({
   rsvpStatus: String,
   donation: Number,
   plusOne: [{
-    type: Schema.Type.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Guest'
   }]
 });
