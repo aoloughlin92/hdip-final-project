@@ -16,10 +16,15 @@ const guestSchema = new Schema({
   postcode: String,
   rsvpStatus: String,
   donation: Number,
+  shortGuestId: String,
   plusOne: [{
     type: Schema.Types.ObjectId,
     ref: 'Guest'
   }]
 });
+
+guestSchema.statics.findByShortId = function(id) {
+  return this.find({ shortGuestId: id});
+};
 
 module.exports = Mongoose.model('Guest', guestSchema);

@@ -67,5 +67,12 @@ process.on('unhandledRejection', err => {
     return moment(date).format(formatToUse);
   });
 
+  hb.registerHelper('ifIsNotZero', function(value, options) {
+    if(value === 0) {
+      return options.inverse(this);
+    }
+    return options.fn(this);
+  });
+
 
 init();

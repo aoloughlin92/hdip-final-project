@@ -1,6 +1,8 @@
 <section class="ui raised segment">
+    <h2>Events Hosted By You</h2>
     <div class="ui grid">
         <article class="twenty wide column">
+            {{#ifIsNotZero eventCount}}
             <table class="ui celled table segment">
                 <thead>
                 <tr>
@@ -21,6 +23,9 @@
                 {{/each}}
                 </tbody>
             </table>
+            {{else}}
+                Nothing to display
+            {{/ifIsNotZero}}
         </article>
     </div>
 </section>

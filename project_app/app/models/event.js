@@ -8,6 +8,7 @@ const eventSchema = new Schema({
   date: Date,
   rsvpCutOff: Date,
   info: String,
+  shortEventId: String,
   hosts: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
@@ -25,5 +26,13 @@ const eventSchema = new Schema({
     ref: 'Donation'
   }]
 });
+
+eventSchema.statics.findByHost = function(id) {
+  return this.find({ hosts: id});
+};
+
+eventSchema.statics.findByShortId = function(id) {
+  return this.find({ shortEventId: id});
+};
 
 module.exports = Mongoose.model('Event', eventSchema);

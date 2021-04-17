@@ -1,6 +1,11 @@
 {{> mainmenu _id="events" }}
 
 <section class="ui raised segment">
+    {{#ifIsNotZero reqCount}}
+    {{>requests}}
+    {{/ifIsNotZero}}
+
+
      {{>eventlist}}
 
     <div class="ui  divider"></div>

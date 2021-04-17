@@ -1,0 +1,26 @@
+<section class="ui raised segment">
+    <div class="ui grid">
+        <article class="twenty wide column">
+            <table class="ui sorted celled table">
+                <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each todos}}
+                    <tr>
+                        <td> {{title}} </td>
+                        <td> {{budget}} </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+                <tfoot>
+                <tr><th></th>
+                    <th>{{total}}</th>
+                </tr></tfoot>
+            </table>
+        </article>
+    </div>
+</section>

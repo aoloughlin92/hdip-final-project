@@ -1,0 +1,18 @@
+{{> mainmenu _id="event" }}
+<h1>{{event.title}}</h1>
+
+<section class="ui stacked segment">
+
+    <div class="ui grid">
+        <div class="three wide column" id="side-menu"  style="background: lightgrey">
+        <article>
+            {{> verticlemenu _id="budget" }}
+        </article>
+        </div>
+        <div class="twelve wide column">
+        <article >
+            {{> budgetview }}
+        </article>
+        </div>
+    </div>
+</section>

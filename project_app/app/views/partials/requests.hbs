@@ -1,0 +1,18 @@
+<section class="ui raised segment">
+    <h2>You have {{reqCount}} new Request(s)!!</h2>
+    <div class="ui grid">
+        {{#each requests}}
+            <article class="twenty wide column">
+                <section class="ui large text raised segment">
+                    {{sentBy.firstName}} {{sentBy.lastName}} has requested to add you to the event {{event.title}}<br/>
+                    {{message}} <br/> <br/>
+                    <a href="/request/accept/{{_id}}">
+                    <button class="positive ui button">Accept</button></a>
+                    <a href="/request/decline/{{_id}}">
+                        <button class="negative ui button">Decline</button>
+                    </a>
+                </section>
+            </article>
+        {{/each}}
+    </div>
+</section>
