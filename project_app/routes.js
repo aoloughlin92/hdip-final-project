@@ -31,6 +31,7 @@ module.exports = [
   { method: 'POST',path: '/rsvp', config: Guests.rsvp},
   { method: 'GET', path: '/guest/{id}', config: Guests.showRSVP},
 
+
   { method: 'GET', path: '/request/{id}', config: Requests.viewRequest },
   { method: 'GET', path: '/request/decline/{id}', config: Requests.decline},
   { method: 'GET', path: '/request/accept/{id}', config: Requests.accept},

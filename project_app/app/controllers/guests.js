@@ -72,32 +72,26 @@ const Guests = {
         let event = await Event.findByShortId(payload.eventId);
         let guest = await Guest.findByShortId(payload.guestId);
         if (event.id == undefined || guest.id == undefined) {
-          const message = 'Invalid Event ID or Guest ID.';
           throw Boom.badData(message);
         }
         //check if guest is for that event ID
-        if(event.guests.indexOf(guest.id)>=0){
-          console.log("yes it does");
-          return h.redirect('/guest/'+guest.id);
-        }
-        else{
-          console.log("nope it doesn;t");
+        if(event.guests.indexOf(guest.id)<0){
           const message = 'Invalid Event ID or Guest ID.';
           throw Boom.badData(message);
         }
+        return h.redirect('/guest/'+ guest.id);
       } catch (err) {
         return h.view('main', { errors: [{ message: err.message }] });
       }
     }
   },
   showRSVP:{
+    auth: false,
     handler: async function(request, h){
       try {
         const guest = await Guest.findOne({_id: request.params.id}).lean();
-        console.log("Guest is"+ guest);
         const event = await Event.findOne({guests: request.params.id}).lean();
-        console.log("Event is"+event);
-        return h.view('guestlist', {
+        return h.view('rsvp', {
           title: event.title,
           guests: guest,
           event: event

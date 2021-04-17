@@ -4,28 +4,13 @@ const Mongoose = require('mongoose');
 const Schema = Mongoose.Schema;
 
 const eventSchema = new Schema({
-  title: String,
-  date: Date,
-  rsvpCutOff: Date,
-  welcomeMessage: String,
-  info: String,
-  shortEventId: String,
-  hosts: [{
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  }],
-  guests: [{
+  guest: {
     type: Schema.Types.ObjectId,
     ref: 'Guest'
-  }],
-  todos: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Todo'
-  }],
-  donations: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Donation'
-  }]
+  },
+  date: Date,
+  message: String,
+  amount: Number
 });
 
 eventSchema.statics.findByHost = function(id) {

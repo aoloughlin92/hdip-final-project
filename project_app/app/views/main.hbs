@@ -27,14 +27,20 @@
                     I want to RSVP to an event.
                 </div>
                 <div class="content">
-                    <p>Please enter your Event ID and Guest ID to prceed.</p>
+                    <p> If you already have an account you can log in here:
+                        <a class="item" href="/login">
+                            <button class="ui pink button">Login</button>
+                        </a>
+                    </p>
+                    <div class="ui  divider"></div>
+                    <div align="center">OR</div>
+                    <div class="ui  divider"></div>
+                    <p>Please enter your Event ID and Guest ID to proceed.</p>
                     <div class="ui ten wide column fluid form">
-
                     <form action="/rsvp" method="POST">
                         <div class="two fields">
                         <div class="field">
-                            <label>Event ID</label> <input type="text"
-                                                        name="eventId">
+                            <label>Event ID</label> <input type="text" name="eventId">
                         </div>
                         <div class="field">
                             <label>Guest ID</label> <input type="text" name="guestId">
