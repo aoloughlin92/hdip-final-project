@@ -24,7 +24,8 @@ const guestSchema = new Schema({
 });
 
 guestSchema.statics.findByShortId = function(id) {
-  return this.find({ shortGuestId: id});
+  return this.findOne({ shortGuestId: id});
 };
+
 
 module.exports = Mongoose.model('Guest', guestSchema);

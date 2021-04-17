@@ -32,7 +32,7 @@ eventSchema.statics.findByHost = function(id) {
 };
 
 eventSchema.statics.findByShortId = function(id) {
-  return this.find({ shortEventId: id});
+  return this.findOne({ shortEventId: id});
 };
 
 module.exports = Mongoose.model('Event', eventSchema);

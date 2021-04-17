@@ -13,22 +13,30 @@ module.exports = [
   { method: 'GET', path: '/logout', config: Accounts.logout },
   { method: 'POST', path: '/signup', config: Accounts.signup },
   { method: 'POST', path: '/login', config: Accounts.login },
+  { method: 'GET', path: '/settings', config: Accounts.showSettings },
+  { method: 'POST', path: '/settings', config: Accounts.updateSettings },
+
   { method: 'POST', path: '/createToDo/{id}', config: Todos.createToDo },
-  { method: 'POST', path: '/addGuest/{id}', config: Guests.addGuest },
+  { method: 'GET', path: '/home', config: Todos.home },
+  { method: 'GET', path: '/todolist/{id}', config: Todos.todolist },
+
   { method: 'POST', path: '/addHost/{id}', config: Events.addHost },
   { method: 'POST', path: '/createEvent', config: Events.createEvent },
   { method: 'GET', path: '/events', config: Events.showEvents },
   { method: 'GET', path: '/event/{id}', config: Events.viewEvent },
   { method: 'GET', path: '/delete/{id}', config: Events.deleteEvent },
-  { method: 'GET', path: '/home', config: Todos.home },
-  { method: 'GET', path: '/todolist/{id}', config: Todos.todolist },
+
   { method: 'GET', path: '/guestlist/{id}', config: Guests.guestlist },
-  { method: 'GET', path: '/budget/{id}', config: Budget.viewBudget},
-  { method: 'GET', path: '/settings', config: Accounts.showSettings },
-  { method: 'POST', path: '/settings', config: Accounts.updateSettings },
+  { method: 'POST', path: '/addGuest/{id}', config: Guests.addGuest },
+  { method: 'POST',path: '/rsvp', config: Guests.rsvp},
+  { method: 'GET', path: '/guest/{id}', config: Guests.showRSVP},
+
   { method: 'GET', path: '/request/{id}', config: Requests.viewRequest },
   { method: 'GET', path: '/request/decline/{id}', config: Requests.decline},
   { method: 'GET', path: '/request/accept/{id}', config: Requests.accept},
+
+  { method: 'GET', path: '/budget/{id}', config: Budget.viewBudget},
+
   {
     method: 'GET',
     path: '/{param*}',
