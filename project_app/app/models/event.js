@@ -10,6 +10,10 @@ const eventSchema = new Schema({
   welcomeMessage: String,
   info: String,
   shortEventId: String,
+  questions:[{
+    type: Schema.Types.ObjectId,
+    ref: 'Question'
+  }],
   hosts: [{
     type: Schema.Types.ObjectId,
     ref: 'User'
