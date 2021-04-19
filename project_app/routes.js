@@ -30,6 +30,9 @@ module.exports = [
   { method: 'POST', path: '/addGuest/{id}', config: Guests.addGuest },
   { method: 'POST',path: '/rsvp', config: Guests.rsvp},
   { method: 'GET', path: '/guest/{id}', config: Guests.showRSVP},
+  { method: 'POST', path: '/guest/{id}/donate', config: Guests.donate},
+  { method: 'GET', path: '/guestdonation/{id}', config: Guests.showDonation},
+  { method: 'POST', path: '/guest/{id}/paypal-transaction-complete', config: Guests.donationComplete},
 
 
   { method: 'GET', path: '/request/{id}', config: Requests.viewRequest },

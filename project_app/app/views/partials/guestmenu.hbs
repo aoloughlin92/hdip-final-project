@@ -1,0 +1,10 @@
+<nav class="ui vertical pointing menu" style="width: 100%; height: 100%; align-items: start">
+    <div>
+        <a id="event"   class= "item" href="/guest/{{guest._id}}">Event</a>
+        <a id="donate" class= "item" href="/guestdonation/{{guest._id}}">Send Gift/Donation</a>
+    </div>
+</nav>
+
+<script>
+    $("#{{_id}}").addClass("active item");
+</script>

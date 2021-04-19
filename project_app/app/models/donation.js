@@ -10,7 +10,8 @@ const donationSchema = new Schema({
   },
   date: Date,
   message: String,
-  amount: Number
+  amount: Number,
+  orderId: String
 });
 
 

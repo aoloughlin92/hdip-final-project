@@ -1,6 +1,7 @@
 'use strict';
 
 const User = require('../models/user');
+const Donation = require('../models/donation');
 const Guest = require('../models/guest');
 const dotenv = require('dotenv');
 const Event = require('../models/event');
@@ -46,7 +47,7 @@ const Guests = {
     }
   },
   rsvp:{
-    auth: false,
+    auth:false,
     validate: {
       payload: {
         eventId: Joi.string().required(),
@@ -79,6 +80,7 @@ const Guests = {
           const message = 'Invalid Event ID or Guest ID.';
           throw Boom.badData(message);
         }
+        request.cookieAuth.set({ id: guest.id });
         return h.redirect('/guest/'+ guest.id);
       } catch (err) {
         return h.view('main', { errors: [{ message: err.message }] });
@@ -86,21 +88,88 @@ const Guests = {
     }
   },
   showRSVP:{
-    auth: false,
     handler: async function(request, h){
       try {
         const guest = await Guest.findOne({_id: request.params.id}).lean();
         const event = await Event.findOne({guests: request.params.id}).lean();
         return h.view('rsvp', {
           title: event.title,
-          guests: guest,
+          guest: guest,
           event: event
         });
       }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
       }
     }
-  }
+  },
+  showDonation:{
+    handler: async function(request, h){
+      try {
+        const guest = await Guest.findOne({_id: request.params.id}).lean();
+        const event = await Event.findOne({guests: request.params.id}).lean();
+        return h.view('guestdonation', {
+          title: event.title,
+          guest: guest,
+          event: event,
+        });
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  donate:{
+    handler: async function(request, h){
+      try {
+        const guest = await Guest.findOne({_id: request.params.id}).lean();
+        const event = await Event.findOne({guests: request.params.id}).lean();
+        const result = dotenv.config();
+        if (result.error) {
+          console.log(result.error.message);
+          process.exit(1);
+        }
+        const paypalurl= process.env.paypalurl;
+        const message = request.payload.message;
+        const donation = request.payload.donation;
+        return h.view('donationconfirmation',{
+          guest: guest,
+          event: event,
+          title: event.title,
+          message: message,
+          donation: donation,
+          paypalurl: paypalurl,
+        });
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  donationComplete:{
+    handler: async function(request, h){
+      try {
+        const guest = await Guest.findOne({_id: request.params.id});
+        console.log("guest is : "+ guest.firstName);
+        const event = await Event.findOne({guests: request.params.id});
+        console.log("event is "+event.title);
+        console.log("donation "+ request.payload.donation);
+        console.log("message "+ request.payload.message);
+        console.log("Payload "+ request.payload);
+        const newDonation = new Donation({
+          guest: guest,
+          date: Date(),
+          message: request.payload.message,
+          amount: request.payload.donation,
+          orderId: request.payload.orderID
+        });
+        await newDonation.save();
+        event.donations.push(newDonation);
+        await event.save();
+        return 100;
+      }catch(err){
+        console.log(err);
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
 };
 
 module.exports = Guests;

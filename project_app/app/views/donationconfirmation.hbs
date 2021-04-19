@@ -3,10 +3,19 @@
 <section class="ui stacked segment">
     <div class="ui grid">
         <aside class="three wide column" style="background: lightgrey">
-            {{> guestmenu _id="event" }}
+            {{> guestmenu _id="donate"}}
         </aside>
         <article class="twelve wide column">
-            Hello You have been invited!!
+            <div>
+            You are sending a donation of <b>€{{donation}}</b> to the event {{event.title}}. <br/>
+            <br/>
+            Your message is:<br/>
+            {{message}}<br/>
+            <br/>
+            Please confirm.<br/>
+            </div>
+            {{>paypalbuttons}}
         </article>
+
     </div>
 </section>

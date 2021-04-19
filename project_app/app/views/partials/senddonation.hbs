@@ -1,0 +1,22 @@
+<div class="ui grid ">
+    <div class="ui form twenty wide column">
+        <form action="/guest/{{guest._id}}/donate" method="POST">
+            <div class="field">
+                <div class="text">Enter Amount<br/></div>
+                <div class="ui labeled input">
+                    <label for="donation" class="ui label">€</label>
+                    <input type="number" placeholder="0.00" name="donation">
+                </div>
+            </div>
+            <div class="field">
+                <div class="text">Send A Message<br/></div>
+                <div class="ui multiline input">
+                    <textarea name="message"></textarea>
+                </div>
+            </div>
+            <br/>
+            <button class="ui blue submit button">Proceed</button>
+        </form>
+    </div>
+</div>
+

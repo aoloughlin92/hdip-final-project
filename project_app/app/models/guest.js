@@ -15,8 +15,11 @@ const guestSchema = new Schema({
   county: String,
   postcode: String,
   rsvpStatus: String,
-  donation: Number,
   shortGuestId: String,
+  answers:[{
+    type: Schema.Types.ObjectId,
+    ref: 'Answer'
+  }],
   plusOne: [{
     type: Schema.Types.ObjectId,
     ref: 'Guest'
