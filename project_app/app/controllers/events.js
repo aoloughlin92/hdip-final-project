@@ -2,6 +2,7 @@
 
 const ShortId = require('../utils/shortid');
 const User = require('../models/user');
+const Guest = require('../models/guest');
 const Event = require('../models/event');
 const Request = require('../models/request');
 
@@ -11,13 +12,16 @@ const Events = {
       const id = request.auth.credentials.id;
       const user = await User.findById(id);
       const events = await Event.findByHost(id).lean();
+      const guestIds = await Guest.findByUserId(id).populate('event').lean();
       const reqs= await Request.findByEmail(user.email).populate('sentBy').populate('event').lean();
       return h.view('events', {
-        title: 'Todos so far',
+        title: 'My Events',
         events: events,
         requests: reqs,
         reqCount: reqs.length,
-        eventCount: events.length
+        eventCount: events.length,
+        invites: guestIds,
+        inviteCount: guestIds.length
       });
     }
   },

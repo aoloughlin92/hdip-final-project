@@ -36,6 +36,10 @@ eventSchema.statics.findByHost = function(id) {
   return this.find({ hosts: id});
 };
 
+eventSchema.statics.findByGuest = function(ids) {
+  return this.find({ guests: {$in: [ids]}});
+};
+
 eventSchema.statics.findByShortId = function(id) {
   return this.findOne({ shortEventId: id});
 };

@@ -20,6 +20,32 @@
         <div class="content">
             {{> createevent }}
         </div>
+        <div class="title">
+            <i class="dropdown icon"></i>
+            RSVP to an event
+        </div>
+        <div class="content">
+        <div class="ui ten wide column fluid form">
+            <form action="/rsvp" method="POST">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Event ID</label> <input type="text" name="eventId">
+                    </div>
+                    <div class="field">
+                        <label>Guest ID</label> <input type="text" name="guestId">
+                    </div>
+                </div>
+                <button class="ui pink submit button">Go!</button>
+            </form>
+        </div>
+    </div>
+        <div class="title">
+            <i class="dropdown icon"></i>
+            My Invites
+        </div>
+        <div class="content">
+            {{> invitelist }}
+        </div>
     </div>
 
     <script language='javascript'>

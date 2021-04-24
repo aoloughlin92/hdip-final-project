@@ -1,0 +1,51 @@
+{
+  "users": {
+    "_model": "User",
+    "homer": {
+      "firstName": "Homer",
+      "lastName": "Simpson",
+      "email": "homer@simpson.com",
+      "password": "secret"
+    },
+    "marge":{
+      "firstName": "Marge",
+      "lastName": "Simpson",
+      "email": "marge@simpson.com",
+      "password": "secret"
+    },
+    "bart": {
+      "firstName": "Bart",
+      "lastName": "Simpson",
+      "email": "bart@simpson.com",
+      "password": "secret"
+    }
+  },
+  "events": {
+    "_model": "Event",
+    "first": {
+      "title": "Homer and Marge's Wedding",
+      "date": "2021-08-12T00:00:00.000+00:00",
+      "info": "Homer and Marge are getting married! At 2pm on August 12th in Springfield.",
+      "shortEventId": "DOHHH",
+      "hosts": [
+        "->users.homer",
+        "->users.marge"
+      ],
+      "guests": [],
+      "todos": [],
+      "donations": []
+    },
+    "second": {
+      "title": "Bart's Birthday Party",
+      "date": "2021-09-10T00:00:00.000+00:00",
+      "info": "Bart is hosting his birthday party! Further Details to follow.....",
+      "shortEventId": "PARTY",
+      "hosts": [
+        "->users.bart"
+      ],
+      "guests": [],
+      "todos": [],
+      "donations": []
+    }
+  }
+}

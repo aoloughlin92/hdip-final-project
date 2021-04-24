@@ -1,0 +1,31 @@
+<section class="ui raised segment">
+    <div class="ui grid">
+        <article class="twenty wide column">
+            {{#ifIsNotZero inviteCount}}
+                <table class="ui celled table segment">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Date</th>
+                        <th>RSVP</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each invites}}
+                        <tr>
+                            <td> {{event.title}} </td>
+                            <td> {{formatDate event.date}}</td>
+                            <td> {{rsvpStatus}}</td>
+                            <td><a href="/event/{{_id}}"  class="ui icon button"> <i class="icon folder open"></i></a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            {{else}}
+                Nothing to display
+            {{/ifIsNotZero}}
+        </article>
+    </div>
+</section>
