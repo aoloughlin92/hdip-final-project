@@ -147,12 +147,7 @@ const Guests = {
     handler: async function(request, h){
       try {
         const guest = await Guest.findOne({_id: request.params.id});
-        console.log("guest is : "+ guest.firstName);
         const event = await Event.findOne({guests: request.params.id});
-        console.log("event is "+event.title);
-        console.log("donation "+ request.payload.donation);
-        console.log("message "+ request.payload.message);
-        console.log("Payload "+ request.payload);
         const newDonation = new Donation({
           guest: guest,
           date: Date(),

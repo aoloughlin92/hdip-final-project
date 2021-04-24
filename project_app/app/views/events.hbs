@@ -5,12 +5,27 @@
     {{>requests}}
     {{/ifIsNotZero}}
 
+    <div class="ui styled fluid accordion">
+        <div class="active title">
+            <i class="dropdown icon"></i>
+            Events Hosted By You
+        </div>
+        <div class="active content">
+            {{>eventlist}}
+        </div>
+        <div class="title">
+            <i class="dropdown icon"></i>
+            Create An Event
+        </div>
+        <div class="content">
+            {{> createevent }}
+        </div>
+    </div>
 
-     {{>eventlist}}
-
-    <div class="ui  divider"></div>
-    {{> createevent }}
-
-    <div class="ui  divider"></div>
+    <script language='javascript'>
+        $(document).ready(function(){
+            $('.ui.accordion').accordion();
+        });
+    </script>
 
 </section>
