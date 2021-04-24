@@ -23,26 +23,13 @@
                             <div class="ui fluid selection dropdown">
                                 <input type="hidden" name="assigned">
                                 <i class="dropdown icon"></i>
-                                <div class="default text">Select Friend</div>
+                                <div class="default text">Select Host</div>
                                 <div class="menu">
-                                    <div class="item" data-value="jenny">
-                                        Jenny Hess
+                                    {{#each event.hosts}}
+                                    <div class="item" data-value="{{_id}}">
+                                        {{firstName}} {{lastName}}
                                     </div>
-                                    <div class="item" data-value="elliot">
-                                        Elliot Fu
-                                    </div>
-                                    <div class="item" data-value="stevie">
-                                        Stevie Feliciano
-                                    </div>
-                                    <div class="item" data-value="christian">
-                                        Christian
-                                    </div>
-                                    <div class="item" data-value="matt">
-                                        Matt
-                                    </div>
-                                    <div class="item" data-value="justen">
-                                        Justen Kitsune
-                                    </div>
+                                    {{/each}}
                                 </div>
                             </div>
                         </div>

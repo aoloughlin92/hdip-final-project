@@ -13,4 +13,8 @@ const todoSchema = new Schema({
   status: String
 });
 
+todoSchema.statics.findByIds = function(ids) {
+  return this.find({ _id: {$in: [ids]}});
+};
+
 module.exports = Mongoose.model('Todo', todoSchema);

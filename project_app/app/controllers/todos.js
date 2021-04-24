@@ -22,12 +22,23 @@ const Todos = {
   },
   todolist: {
     handler: async function(request, h) {
-      const event = await Event.findOne({_id: request.params.id}).populate('todos').lean();
-      return h.view('todolist', {
-        title: 'Todos so far',
-        todos: event.todos,
-        event: event
-      });
+      try {
+        const event = await Event.findOne({ _id: request.params.id })
+          .populate({
+            path: 'todos',
+            populate:{
+              path: 'assigned'
+            }
+        }).populate('hosts').lean();
+        //const todos = await Todo.find({ _id: {$in: [todoIds]}}).lean();
+        return h.view('todolist', {
+          title: 'Todos so far',
+          todos: event.todos,
+          event: event
+        });
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
     }
   },
   createToDo: {
@@ -40,7 +51,7 @@ const Todos = {
         const newTodo = new Todo({
           title: data.title,
           budget: data.budget,
-          assigned: user._id,
+          assigned: data._id,
           status: data.status
         });
         await newTodo.save();
