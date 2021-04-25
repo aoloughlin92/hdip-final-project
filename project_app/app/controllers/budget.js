@@ -9,8 +9,8 @@ const Budget = {
     handler: async function(request, h) {
       try {
         const event = await Event.findOne({ _id: request.params.id }).populate('todos').lean();
-        var total = 0;
-        for(var i=0; i<event.todos.length; i++){
+        let total = 0;
+        for(let i=0; i<event.todos.length; i++){
           total = total+event.todos[i].budget;
         }
         return h.view('budget',{

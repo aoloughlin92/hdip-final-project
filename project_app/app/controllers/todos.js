@@ -43,7 +43,7 @@ const Todos = {
         event.todos.push(newTodo);
         await event.save();
         return h.redirect('/todolist/'+ event._id);
-      }catch{
+      }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
       }
     }

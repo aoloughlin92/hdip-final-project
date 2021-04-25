@@ -42,7 +42,7 @@ const Guests = {
           guests: guests,
           event: event
         });
-      }catch{
+      }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
       }
     }
@@ -84,11 +84,14 @@ const Guests = {
       try {
         const id = request.auth.credentials.id;
         const guest = await Guest.findOne({_id: request.params.id}).lean();
-        const event = await Event.findOne({guests: request.params.id}).lean();
+        const event = await Event.findOne({guests: request.params.id}).populate('hosts')
+          .populate('questions').lean();
         return h.view('rsvp', {
           title: event.title,
           guest: guest,
+          hosts: event.hosts,
           event: event,
+          questions: event.questions,
           loggedin: false
         });
       }catch(err){

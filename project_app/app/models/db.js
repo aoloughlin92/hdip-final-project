@@ -8,7 +8,7 @@ Mongoose.set('useNewUrlParser', true);
 Mongoose.set('useUnifiedTopology', true);
 
 async function seed() {
-  var seeder = require('mais-mongoose-seeder')(Mongoose);
+  let seeder = require('mais-mongoose-seeder')(Mongoose);
   const data = require('./seed-data.json');
   const Event = require('./event.js');
   const Answer = require('./answer.js');

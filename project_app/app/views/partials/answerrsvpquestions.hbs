@@ -1,0 +1,19 @@
+<h3>Please answer the below questions</h3>
+<div class="ui form">
+    <form action="/RSVP" method="POST">
+        <div class="grouped inline fields">
+            {{#each questions}}
+                <label>{{question}}</label>
+                {{#each answers}}
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="answer" value="{{this}}">
+                    <label>{{this}}</label>
+                </div>
+            </div>
+                {{/each}}
+            {{/each}}
+            <button class="ui pink submit button">Send</button>
+        </div>
+    </form>
+</div>

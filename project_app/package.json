@@ -28,7 +28,8 @@
     "mais-mongoose-seeder": "^1.0.7",
     "moment": "^2.29.1",
     "mongoose": "^5.11.18",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "@hapi/boom": "latest"
   },
   "prettier": {
     "singleQuote": true,

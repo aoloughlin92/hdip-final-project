@@ -1,16 +1,29 @@
 {{#if loggedin}}
     {{> mainmenu _id="event" }}
 {{else}}
-    {{> welcomemenu }}<!-- todo create handlebars that will display different menu bar if guest logged in-->
+    {{> welcomemenu }}
 {{/if}}
 <h1> {{event.title}}</h1>
-<section class="ui stacked segment">
+<section class="ui segment">
     <div class="ui grid" style="height: 100vh;">
         <aside class="three wide column" style="background: lightgrey">
             {{> guestmenu _id="event" }}
         </aside>
         <article class="twelve wide column">
-            Hello You have been invited!!
+            <div class="ui segment">
+                <div style="white-space: pre; font-size: large">{{event.welcomeMessage}}</div>
+                <div class="ui  divider"></div>
+                <b>Date: </b> {{formatDate event.date}}<br/>
+                <br/><b>Hosted By:</b>{{#each hosts}} {{firstName}} {{lastName}}, {{/each}}<br/>
+                <br/><b>Information: </b><br/>
+                <div style="white-space: pre;">{{event.info}}</div>
+            </div>
+            <div class="ui segment">
+                {{>rsvpselection}}
+            </div>
+            <div class="ui segment">
+                {{>answerrsvpquestions}}
+            </div>
         </article>
     </div>
 </section>

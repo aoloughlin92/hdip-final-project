@@ -94,8 +94,7 @@ const Events = {
     handler: async function(request, h) {
       try {
         let event = await Event.findOne({ _id: request.params.id });
-        const message = request.payload.message;
-        event.welcomeMessage = message;
+        event.welcomeMessage = request.payload.message;
         await event.save();
         event = await Event.findOne({ _id: request.params.id }).lean();
         return h.view('event', {
@@ -115,7 +114,7 @@ const Events = {
         if(request.payload.required == 'required'){
           bool = true;
         }
-        var ans = [];
+        let ans = [];
         if(request.payload.answer1.length>0){
           ans.push(request.payload.answer1);
         }
@@ -159,8 +158,8 @@ const Events = {
               path: 'guest'
             }
           }).lean();
-        var total = 0;
-         for(var i=0; i<event.donations.length; i++){
+        let total = 0;
+         for(let i=0; i<event.donations.length; i++){
           total = total+event.donations[i].amount;
         }
         return h.view('donations', {

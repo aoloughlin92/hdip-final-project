@@ -13,7 +13,7 @@ const Requests = {
         const user = await User.findById(id);
         let req = await Request.findOne({ _id: request.params.id }).lean();
 
-      }catch{
+      }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
       }
     }
