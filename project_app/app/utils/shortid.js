@@ -13,7 +13,7 @@ const ShortId={
         id = id + c;
       }
       const temp = await Event.findByShortId(id);
-      if(temp.id == undefined){
+      if(temp == null || temp.id == undefined){
         return id;
       }
       else{
@@ -29,7 +29,7 @@ const ShortId={
       id = id + c;
     }
     const temp = await Guest.findByShortId(id);
-    if(temp.id == undefined){
+    if(temp == null || temp.id == undefined){
       return id;
     }
     else{

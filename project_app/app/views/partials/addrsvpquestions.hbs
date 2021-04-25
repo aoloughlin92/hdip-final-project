@@ -1,0 +1,58 @@
+<section>
+    <div class="ui grid ">
+        <div class="ui form twenty wide column">
+            <div>
+                <form action="/rsvpquestion/{{event._id}}" method="POST">
+                    <div class="one field">
+                        <div class="field">
+                            <div class="text">Question<br/></div>
+                            <div class="ui input">
+                                <input type="text" name="question">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" name="required" value="required">
+                                <label>Make this a required question</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="text">Answers<br/></div>
+                            <div class="ui input">
+                                <input type="text" name="answer1">
+                            </div><br/>
+                        </div>
+                        <div class="field">
+                            <div class="ui input">
+                                <input type="text" name="answer2">
+                            </div><br/>
+                        </div>
+                        <div class="field">
+                            <div class="ui input">
+                                <input type="text" name="answer3">
+                            </div><br/>
+                        </div>
+                        <div class="field">
+                            <div class="ui input">
+                                <input type="text" name="answer4">
+                            </div><br/>
+                        </div>
+                        <div class="field">
+                            <div class="ui input">
+                                <input type="text" name="answer5">
+                            </div><br/>
+                        </div>
+
+                    </div>
+                    <button class="ui pink submit button">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $('.ui.toggle').checkbox({
+    onChecked: function () {  },
+    onUnchecked: function () { }
+    });
+</script>

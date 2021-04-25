@@ -1,7 +1,11 @@
-{{> welcomemenu }}<!-- todo create handlebars that will display different menu bar if guest logged in-->
+{{#if loggedin}}
+    {{> mainmenu _id="event" }}
+{{else}}
+    {{> welcomemenu }}<!-- todo create handlebars that will display different menu bar if guest logged in-->
+{{/if}}
 <h1> {{event.title}}</h1>
 <section class="ui stacked segment">
-    <div class="ui grid">
+    <div class="ui grid" style="height: 100vh;">
         <aside class="three wide column" style="background: lightgrey">
             {{> guestmenu _id="event" }}
         </aside>

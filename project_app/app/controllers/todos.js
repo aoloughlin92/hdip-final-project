@@ -6,20 +6,6 @@ const Event = require('../models/event');
 const dotenv = require('dotenv');
 
 const Todos = {
-  home: {
-    handler: function(request, h) {
-      const result = dotenv.config();
-      if (result.error) {
-        console.log(result.error.message);
-        process.exit(1);
-      }
-      const paypalurl= process.env.paypalurl;
-      return h.view('home', {
-        title: 'Wedoo',
-        paypalurl: paypalurl
-      });
-    }
-  },
   todolist: {
     handler: async function(request, h) {
       try {
@@ -30,7 +16,6 @@ const Todos = {
               path: 'assigned'
             }
         }).populate('hosts').lean();
-        //const todos = await Todo.find({ _id: {$in: [todoIds]}}).lean();
         return h.view('todolist', {
           title: 'Todos so far',
           todos: event.todos,

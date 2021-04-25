@@ -1,16 +1,29 @@
 {{> mainmenu _id="events" }}
-
 <h1> {{event.title}}</h1>
-<section class="ui stacked segment">
-    <div class="ui grid">
-        <aside class="three wide column" style="background: lightgrey">
+<section class="ui segment" >
+    <div class="ui grid" style="height: 100vh;">
+        <article class="three wide column" style=" background: lightgrey">
             {{> verticlemenu _id="event" }}
-        </aside>
+        </article>
         <article class="twelve wide column">
-
             {{>eventview}}
-            <div class="ui  divider"></div>
-            {{>addhost}}
+            <div class="ui styled fluid accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Invite host
+                </div>
+                <div class="content">
+                    {{>addhost}}
+                </div>
+            </div>
+            <br/>
+            {{>addrsvpinfo}}
         </article>
     </div>
 </section>
+
+<script language='javascript'>
+    $(document).ready(function(){
+        $('.ui.accordion').accordion();
+    });
+</script>

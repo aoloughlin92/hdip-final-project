@@ -17,7 +17,6 @@ module.exports = [
   { method: 'POST', path: '/settings', config: Accounts.updateSettings },
 
   { method: 'POST', path: '/createToDo/{id}', config: Todos.createToDo },
-  { method: 'GET', path: '/home', config: Todos.home },
   { method: 'GET', path: '/todolist/{id}', config: Todos.todolist },
 
   { method: 'POST', path: '/addHost/{id}', config: Events.addHost },
@@ -25,6 +24,9 @@ module.exports = [
   { method: 'GET', path: '/events', config: Events.showEvents },
   { method: 'GET', path: '/event/{id}', config: Events.viewEvent },
   { method: 'GET', path: '/delete/{id}', config: Events.deleteEvent },
+  { method: 'POST', path: '/rsvpmessage/{id}', config: Events.setWelcomeMessage },
+  { method: 'POST', path: '/rsvpquestion/{id}', config: Events.addQuestion },
+  { method: 'GET', path: '/donations/{id}', config: Events.viewDonations },
 
   { method: 'GET', path: '/guestlist/{id}', config: Guests.guestlist },
   { method: 'POST', path: '/addGuest/{id}', config: Guests.addGuest },

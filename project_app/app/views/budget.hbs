@@ -3,16 +3,14 @@
 
 <section class="ui stacked segment">
 
-    <div class="ui grid">
-        <div class="three wide column" id="side-menu"  style="background: lightgrey">
-        <article>
+    <div class="ui grid" style="height: 100vh;">
+        <aside class="three wide column" style="background: lightgrey">
             {{> verticlemenu _id="budget" }}
-        </article>
-        </div>
-        <div class="twelve wide column">
-        <article >
+        </aside>
+
+        <article class="twelve wide column">
             {{> budgetview }}
         </article>
-        </div>
+
     </div>
 </section>

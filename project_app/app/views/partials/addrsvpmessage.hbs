@@ -1,0 +1,20 @@
+<section>
+    <div class="ui grid ">
+        <div class="ui form twenty wide column">
+            <div>
+                <form action="/rsvpmessage/{{event._id}}" method="POST">
+                    <div class="one field">
+                        <div class="field">
+                            <div class="text">Enter the RSVP Screen Welcome Message<br/></div>
+                            <div class="ui multiline input">
+                                <textarea name="message">{{event.welcomeMessage}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="ui pink submit button">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+

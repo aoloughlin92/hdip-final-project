@@ -1,0 +1,29 @@
+<section class="ui raised segment">
+    <div class="ui grid">
+        <article class="twenty wide column">
+            <table class="ui celled table segment">
+                <thead>
+                <tr>
+                    <th>Guest Name</th>
+                    <th>Message</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each donations}}
+                    <tr>
+                        <td> {{guest.firstName}} {{guest.lastName}} </td>
+                        <td> {{message}} </td>
+                        <td> {{amount}}</td>
+                    </tr>
+                {{/each}}
+                </tbody>
+                <tfoot>
+                <tr><th></th>
+                    <th>Total Amount:</th>
+                    <th>{{total}}</th>
+                </tr></tfoot>
+            </table>
+        </article>
+    </div>
+</section>

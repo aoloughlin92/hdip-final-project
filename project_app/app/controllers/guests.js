@@ -6,6 +6,7 @@ const Guest = require('../models/guest');
 const dotenv = require('dotenv');
 const Event = require('../models/event');
 const ShortId = require('../utils/shortid');
+const RSVPLogin = require('../utils/rsvplogin');
 const Boom = require('@hapi/boom');
 const Joi = require('@hapi/joi');
 
@@ -26,7 +27,7 @@ const Guests = {
         event.guests.push(newGuest);
         await event.save();
         return h.redirect('/guestlist/'+event._id);
-      }catch{
+      }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
       }
     }
@@ -69,19 +70,10 @@ const Guests = {
     handler: async function(request, h) {
       try {
         const payload = request.payload;
-        console.log(payload);
-        let event = await Event.findByShortId(payload.eventId);
-        let guest = await Guest.findByShortId(payload.guestId);
-        if (event.id == undefined || guest.id == undefined) {
-          throw Boom.badData(message);
-        }
-        //check if guest is for that event ID
-        if(event.guests.indexOf(guest.id)<0){
-          const message = 'Invalid Event ID or Guest ID.';
-          throw Boom.badData(message);
-        }
-        request.cookieAuth.set({ id: guest.id });
-        return h.redirect('/guest/'+ guest.id);
+        const res = await RSVPLogin.checkInfo(payload.eventId, payload.guestId);
+        console.log(res);
+        request.cookieAuth.set({ id: res.guest._id });
+        return h.redirect('/guest/'+ res.guest._id);
       } catch (err) {
         return h.view('main', { errors: [{ message: err.message }] });
       }
@@ -90,12 +82,14 @@ const Guests = {
   showRSVP:{
     handler: async function(request, h){
       try {
+        const id = request.auth.credentials.id;
         const guest = await Guest.findOne({_id: request.params.id}).lean();
         const event = await Event.findOne({guests: request.params.id}).lean();
         return h.view('rsvp', {
           title: event.title,
           guest: guest,
-          event: event
+          event: event,
+          loggedin: false
         });
       }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });

@@ -5,6 +5,7 @@ const User = require('../models/user');
 const Guest = require('../models/guest');
 const Event = require('../models/event');
 const Request = require('../models/request');
+const Question = require('../models/question');
 
 const Events = {
   showEvents: {
@@ -88,7 +89,91 @@ const Events = {
         return h.redirect('/events', { errors: [{ message: err.message }] });
       }
     }
-  }
+  },
+  setWelcomeMessage: {
+    handler: async function(request, h) {
+      try {
+        let event = await Event.findOne({ _id: request.params.id });
+        const message = request.payload.message;
+        event.welcomeMessage = message;
+        await event.save();
+        event = await Event.findOne({ _id: request.params.id }).lean();
+        return h.view('event', {
+          title: event.title,
+          event: event
+        });
+      } catch (err) {
+        return h.redirect('/events', { errors: [{ message: err.message }] });
+      }
+    }
+  },
+  addQuestion: {
+    handler: async function(request, h) {
+      try {
+        let event = await Event.findOne({ _id: request.params.id });
+        let bool = false;
+        if(request.payload.required == 'required'){
+          bool = true;
+        }
+        var ans = [];
+        if(request.payload.answer1.length>0){
+          ans.push(request.payload.answer1);
+        }
+        if(request.payload.answer2.length>0){
+          ans.push(request.payload.answer2);
+        }
+        if(request.payload.answer3.length>0){
+          ans.push(request.payload.answer3);
+        }
+        if(request.payload.answer4.length>0){
+          ans.push(request.payload.answer4);
+        }
+        if(request.payload.answer5.length>0){
+          ans.push(request.payload.answer5);
+        }
+        const newQuestion = new Question({
+          question: request.payload.question,
+          required: bool,
+          answers: ans
+        });
+        await newQuestion.save();
+        event.questions.push(newQuestion);
+        await event.save();
+        event = await Event.findOne({ _id: request.params.id }).lean();
+        return h.view('event', {
+          title: event.title,
+          event: event
+        });
+      } catch (err) {
+        return h.redirect('/events', { errors: [{ message: err.message }] });
+      }
+    }
+  },
+  viewDonations: {
+    handler: async function(request, h) {
+      try {
+        let event = await Event.findOne({ _id: request.params.id })
+          .populate({
+            path: 'donations',
+            populate:{
+              path: 'guest'
+            }
+          }).lean();
+        var total = 0;
+         for(var i=0; i<event.donations.length; i++){
+          total = total+event.donations[i].amount;
+        }
+        return h.view('donations', {
+          title: event.title,
+          event: event,
+          donations: event.donations,
+          total: total
+        });
+      } catch (err) {
+        return h.redirect('/events', { errors: [{ message: err.message }] });
+      }
+    }
+  },
 };
 
 module.exports = Events;
