@@ -1,6 +1,7 @@
 'use strict';
 const Event = require('../models/event');
 const Guest = require('../models/guest');
+const Boom = require('@hapi/boom');
 
 const RsvpLogin={
   checkInfo: async function(eventId, guestId) {
@@ -15,6 +16,15 @@ const RsvpLogin={
       throw Boom.badData(message);
     }
     return { event, guest }
+  },
+  isUserLoggedIn: function(cred, params){
+    if(cred == params){
+      //credential is same as params -> guest is not logged in
+      return false;
+    }
+    else {
+      return true;
+    }
   }
 };
 

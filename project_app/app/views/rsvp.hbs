@@ -21,9 +21,11 @@
             <div class="ui segment">
                 {{>rsvpselection}}
             </div>
+            {{#if showQuestions}}
             <div class="ui segment">
                 {{>answerrsvpquestions}}
             </div>
+                {{/if}}
         </article>
     </div>
 </section>

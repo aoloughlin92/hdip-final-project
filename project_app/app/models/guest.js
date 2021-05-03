@@ -18,6 +18,7 @@ const guestSchema = new Schema({
   address3: String,
   county: String,
   postcode: String,
+  country: String,
   rsvpStatus: String,
   shortGuestId: String,
   user: {

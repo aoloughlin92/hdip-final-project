@@ -14,6 +14,9 @@ const Events = {
       const user = await User.findById(id);
       const events = await Event.findByHost(id).lean();
       const guestIds = await Guest.findByUserId(id).populate('event').lean();
+      for(let i=0; i<guestIds.length;i++){
+        console.log("INVITES: "+ guestIds[i].firstName);
+      }
       const reqs= await Request.findByEmail(user.email).populate('sentBy').populate('event').lean();
       return h.view('events', {
         title: 'My Events',

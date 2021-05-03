@@ -18,6 +18,7 @@ const Guests = {
         const data = request.payload;
         const shortId = await ShortId.generateShortGuestId();
         const newGuest = new Guest({
+          event: event,
           firstName: data.fname,
           lastName: data.lname,
           email: data.email,
@@ -72,7 +73,7 @@ const Guests = {
         const payload = request.payload;
         const res = await RSVPLogin.checkInfo(payload.eventId, payload.guestId);
         request.cookieAuth.set({ id: res.guest._id });
-        return h.redirect('/guest/'+ res.guest._id,{loggedin: false});
+        return h.redirect('/guest/'+ res.guest._id);
       } catch (err) {
         return h.view('main', { errors: [{ message: err.message }] });
       }
@@ -102,9 +103,9 @@ const Guests = {
         const payload = request.payload;
         const res = await RSVPLogin.checkInfo(payload.eventId, payload.guestId);
         const id = request.auth.credentials.id;
-        let user = await User.findOne({ _id: id });
-        user.guestids.push(res.guest._id);
-        await user.save();
+        const guest = res.guest;
+        guest.user = id;
+        await guest.save();
         return h.redirect('/guest/'+ res.guest._id);
       } catch (err) {
         return h.view('main', { errors: [{ message: err.message }] });
@@ -114,24 +115,21 @@ const Guests = {
   showRSVP:{
     handler: async function(request, h){
       try {
-        const id = request.auth.credentials.id;
-        let loggedin = false;
-        if(id == request.params.id){
-          //credential is same as params -> guest is not logged in
-          loggedin=false;
-        }
-        else {
-          loggedin = true;
-        }
+        let loggedin = RSVPLogin.isUserLoggedIn(request.auth.credentials.id,request.params.id);
         const guest = await Guest.findOne({_id: request.params.id}).lean();
         const event = await Event.findOne({guests: request.params.id}).populate('hosts')
           .populate('questions').lean();
+        let showQuestions = false;
+        if(guest.rsvpStatus == "yes" && event.questions.length>0){
+          showQuestions = true;
+        }
         return h.view('rsvp', {
           title: event.title,
           guest: guest,
           hosts: event.hosts,
           event: event,
           questions: event.questions,
+          showQuestions: showQuestions,
           loggedin: loggedin
         });
       }catch(err){
@@ -142,15 +140,7 @@ const Guests = {
   showDonation:{
     handler: async function(request, h){
       try {
-        let loggedin = false;
-        const id = request.auth.credentials.id;
-        if(id == request.params.id){
-          //credential is same as params -> guest is not logged in
-          loggedin=false;
-        }
-        else {
-          loggedin = true;
-        }
+        let loggedin = RSVPLogin.isUserLoggedIn(request.auth.credentials.id,request.params.id);
         const guest = await Guest.findOne({_id: request.params.id}).lean();
         const event = await Event.findOne({guests: request.params.id}).lean();
         return h.view('guestdonation', {
@@ -212,6 +202,57 @@ const Guests = {
       }
     }
   },
+  showInfo:{
+    handler: async function(request, h){
+      try {
+        let loggedin = RSVPLogin.isUserLoggedIn(request.auth.credentials.id,request.params.id);
+        const guest = await Guest.findOne({_id: request.params.id}).lean();
+        const event = await Event.findOne({guests: request.params.id}).lean();
+        return h.view('guestinfo', {
+          title: event.title,
+          guest: guest,
+          event: event,
+          loggedin: loggedin
+        });
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  updateMyInfo:{
+    handler: async function(request, h){
+      try {
+        let loggedin = RSVPLogin.isUserLoggedIn(request.auth.credentials.id,request.params.id);
+        let guest = await Guest.findOne({_id: request.params.id});
+        guest.firstName = request.payload.firstName;
+        guest.lastName = request.payload.lastName;
+        guest.email = request.payload.email;
+        guest.address1 = request.payload.address1;
+        guest.address2 = request.payload.address2;
+        guest.address3 = request.payload.address3;
+        guest.county = request.payload.county;
+        guest.postcode = request.payload.postcode;
+        guest.country = request.payload.country;
+        await guest.save();
+        return h.redirect('/myinfo/'+ guest._id);
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  updateRSVP:{
+    handler: async function(request, h){
+      try {
+        let loggedin = RSVPLogin.isUserLoggedIn(request.auth.credentials.id,request.params.id);
+        let guest = await Guest.findOne({_id: request.params.id});
+        guest.rsvpStatus = request.payload.rsvpstatus;
+        await guest.save();
+        return h.redirect('/guest/'+ guest._id);
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  }
 };
 
 module.exports = Guests;

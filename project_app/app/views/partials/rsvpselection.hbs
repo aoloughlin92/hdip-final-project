@@ -1,16 +1,16 @@
 <h3>Please RSVP</h3>
 <div class="ui form">
-    <form action="/RSVP" method="POST">
+    <form action="/postRSVP/{{guest._id}}" method="POST">
     <div class="grouped inline fields">
         <div class="field">
             <div class="ui radio checkbox">
-                <input type="radio" name="method" value="yes">
+                <input type="radio" name="rsvpstatus" value="yes">
                 <label>Yes, I'm attending!</label>
             </div>
         </div>
         <div class="field">
             <div class="ui radio checkbox">
-                <input type="radio" name="method" value="no">
+                <input type="radio" name="rsvpstatus" value="no">
                 <label>No, can't make it</label>
             </div>
         </div>
