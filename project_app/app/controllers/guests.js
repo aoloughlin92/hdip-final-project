@@ -101,6 +101,10 @@ const Guests = {
       try {
         const payload = request.payload;
         const res = await RSVPLogin.checkInfo(payload.eventId, payload.guestId);
+        const id = request.auth.credentials.id;
+        let user = await User.findOne({ _id: id });
+        user.guestids.push(res.guest._id);
+        await user.save();
         return h.redirect('/guest/'+ res.guest._id);
       } catch (err) {
         return h.view('main', { errors: [{ message: err.message }] });
@@ -138,12 +142,22 @@ const Guests = {
   showDonation:{
     handler: async function(request, h){
       try {
+        let loggedin = false;
+        const id = request.auth.credentials.id;
+        if(id == request.params.id){
+          //credential is same as params -> guest is not logged in
+          loggedin=false;
+        }
+        else {
+          loggedin = true;
+        }
         const guest = await Guest.findOne({_id: request.params.id}).lean();
         const event = await Event.findOne({guests: request.params.id}).lean();
         return h.view('guestdonation', {
           title: event.title,
           guest: guest,
           event: event,
+          loggedin: loggedin
         });
       }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
