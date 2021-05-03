@@ -1,18 +1,15 @@
 'use strict';
-
 const User = require('../models/user');
 const Event = require('../models/event');
 const Request = require('../models/request');
 
 const Requests = {
   viewRequest: {
+    auth: false,
     handler: async function(request, h) {
       try{
-        //if user logged in
-        const id = request.auth.credentials.id;
-        const user = await User.findById(id);
         let req = await Request.findOne({ _id: request.params.id }).lean();
-
+        return h.view('request');
       }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
       }

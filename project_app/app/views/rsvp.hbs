@@ -43,10 +43,10 @@
                         </div>
                     </div>
                 {{/check}}
-                {{#check guest.rsvpStatus ""}}
+                {{#unless guest.rsvpStatus}}
                     <h3>Please RSVP</h3>
                     {{>rsvpselection}}
-                {{/check}}
+                {{/unless}}
             </div>
             {{#if showQuestions}}
                 <div class="ui segment">

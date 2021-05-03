@@ -6,6 +6,7 @@ const Guest = require('../models/guest');
 const Event = require('../models/event');
 const Request = require('../models/request');
 const Question = require('../models/question');
+const EmailHelper = require('../utils/emailHelper');
 
 const Events = {
   showEvents: {
@@ -14,9 +15,6 @@ const Events = {
       const user = await User.findById(id);
       const events = await Event.findByHost(id).lean();
       const guestIds = await Guest.findByUserId(id).populate('event').lean();
-      for(let i=0; i<guestIds.length;i++){
-        console.log("INVITES: "+ guestIds[i].firstName);
-      }
       const reqs= await Request.findByEmail(user.email).populate('sentBy').populate('event').lean();
       return h.view('events', {
         title: 'My Events',
@@ -84,6 +82,8 @@ const Events = {
           event: event
         });
         await newRequest.save();
+        let subject = user.firstName+ " "+ user.lastName+" has sent you a request to host "+event.title;
+        await EmailHelper.sendEmail(newRequest, subject);
         return h.view('event', {
           title: event.title,
           event: event

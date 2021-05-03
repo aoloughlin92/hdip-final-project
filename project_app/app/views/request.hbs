@@ -1,0 +1,63 @@
+{{> welcomemenu }}
+<section class="ui stacked segment">
+    <div class="ui grid">
+        <aside class="six wide column">
+            <img src="images/wedoo.jpg" class="ui medium image">
+        </aside>
+        <article class="ten wide column">
+            <header class="ui  header">YOUR REQUEST!</header>
+            <p>Plan your event using Wedoo</p>
+            <div class="ui styled fluid accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    I want to plan my event.
+                </div>
+                <div class="content">
+                    <p class="transition visible" style="display: block !important;">
+                        Great! Please sign up and begin planning your event.</p>
+                    <div class="ui large buttons">
+                        <a class="item" href="/signup">
+                            <button class="ui pink button">Sign Up</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    I want to RSVP to an event.
+                </div>
+                <div class="content">
+                    <p> If you already have an account you can log in here:
+                        <a class="item" href="/login">
+                            <button class="ui pink button">Login</button>
+                        </a>
+                    </p>
+                    <div class="ui  divider"></div>
+                    <div align="center">OR</div>
+                    <div class="ui  divider"></div>
+                    <p>Please enter your Event ID and Guest ID to proceed.</p>
+                    <div class="ui ten wide column fluid form">
+                        <form action="/rsvp" method="POST">
+                            <div class="two fields">
+                                <div class="field">
+                                    <label>Event ID</label> <input type="text" name="eventId">
+                                </div>
+                                <div class="field">
+                                    <label>Guest ID</label> <input type="text" name="guestId">
+                                </div>
+                            </div>
+                            <button class="ui pink submit button">Go!</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+<script language='javascript'>
+    $(document).ready(function(){
+        $('.ui.accordion').accordion();
+    });
+</script>
+

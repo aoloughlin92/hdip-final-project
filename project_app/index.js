@@ -80,31 +80,6 @@ process.on('unhandledRejection', err => {
     }
     return options.inverse(this);
   });
-  //
-  // var nodemailer = require('nodemailer');
-  //
-  // var transporter = nodemailer.createTransport({
-  //   service: 'gmail',
-  //   auth: {
-  //     user: process.env.gmailemail,
-  //     pass: process.env.gmailpass
-  //   }
-  // });
-  //
-  // var mailOptions = {
-  //   from: process.env.gmailemail,
-  //   to: 'wedooalerttest@gmail.com',
-  //   subject: 'this is a test email',
-  //   text: 'this is a test email'
-  // };
-  //
-  // transporter.sendMail(mailOptions, function(error,info){
-  //   if(error){
-  //     console.log("error sending email");
-  //     console.log(error);
-  //   }else{
-  //     console.log('Email sent: '+ info.response);
-  //   }
-  // });
+
 
 init();
