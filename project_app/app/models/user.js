@@ -8,7 +8,11 @@ const userSchema = new Schema({
   firstName: String,
   lastName: String,
   email: String,
-  password: String
+  password: String,
+  guestids:[{
+    type: Schema.Types.ObjectId,
+    ref: 'Guest'
+  }]
 });
 
 userSchema.statics.findByEmail = function(email) {

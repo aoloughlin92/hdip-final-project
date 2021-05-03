@@ -71,8 +71,36 @@ const Guests = {
       try {
         const payload = request.payload;
         const res = await RSVPLogin.checkInfo(payload.eventId, payload.guestId);
-        console.log(res);
         request.cookieAuth.set({ id: res.guest._id });
+        return h.redirect('/guest/'+ res.guest._id,{loggedin: false});
+      } catch (err) {
+        return h.view('main', { errors: [{ message: err.message }] });
+      }
+    }
+  },
+  rsvplogin:{
+    validate: {
+      payload: {
+        eventId: Joi.string().required(),
+        guestId: Joi.string().required(),
+      },
+      options: {
+        abortEarly: false,
+      },
+      failAction: function(request, h, error) {
+        return h
+          .view('main', {
+            title: 'RSVP error',
+            errors: error.details
+          })
+          .takeover()
+          .code(400);
+      }
+    },
+    handler: async function(request, h) {
+      try {
+        const payload = request.payload;
+        const res = await RSVPLogin.checkInfo(payload.eventId, payload.guestId);
         return h.redirect('/guest/'+ res.guest._id);
       } catch (err) {
         return h.view('main', { errors: [{ message: err.message }] });
@@ -83,6 +111,14 @@ const Guests = {
     handler: async function(request, h){
       try {
         const id = request.auth.credentials.id;
+        let loggedin = false;
+        if(id == request.params.id){
+          //credential is same as params -> guest is not logged in
+          loggedin=false;
+        }
+        else {
+          loggedin = true;
+        }
         const guest = await Guest.findOne({_id: request.params.id}).lean();
         const event = await Event.findOne({guests: request.params.id}).populate('hosts')
           .populate('questions').lean();
@@ -92,7 +128,7 @@ const Guests = {
           hosts: event.hosts,
           event: event,
           questions: event.questions,
-          loggedin: false
+          loggedin: loggedin
         });
       }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });

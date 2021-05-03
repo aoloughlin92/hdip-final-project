@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/aoloughlin92/hdip-final-project#readme",
   "dependencies": {
+    "@hapi/boom": "latest",
     "@hapi/cookie": "^11.0.2",
     "@hapi/hapi": "^20.1.0",
     "@hapi/inert": "^6.0.3",
@@ -28,8 +29,8 @@
     "mais-mongoose-seeder": "^1.0.7",
     "moment": "^2.29.1",
     "mongoose": "^5.11.18",
-    "prettier": "^2.2.1",
-    "@hapi/boom": "latest"
+    "nodemailer": "^6.6.0",
+    "prettier": "^2.2.1"
   },
   "prettier": {
     "singleQuote": true,

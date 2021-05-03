@@ -31,6 +31,7 @@ module.exports = [
   { method: 'GET', path: '/guestlist/{id}', config: Guests.guestlist },
   { method: 'POST', path: '/addGuest/{id}', config: Guests.addGuest },
   { method: 'POST',path: '/rsvp', config: Guests.rsvp},
+  { method: 'POST',path: '/rsvplogin', config: Guests.rsvplogin},
   { method: 'GET', path: '/guest/{id}', config: Guests.showRSVP},
   { method: 'POST', path: '/guest/{id}/donate', config: Guests.donate},
   { method: 'GET', path: '/guestdonation/{id}', config: Guests.showDonation},
