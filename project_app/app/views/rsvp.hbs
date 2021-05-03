@@ -19,13 +19,46 @@
                 <div style="white-space: pre;">{{event.info}}</div>
             </div>
             <div class="ui segment">
-                {{>rsvpselection}}
+                {{#check guest.rsvpStatus "yes"}}
+                    <h3>You have accepted this invitation.</h3>
+                    <div class="ui styled fluid accordion">
+                        <div class="title">
+                            <i class="dropdown icon"></i>
+                            Click here to update your response.
+                        </div>
+                        <div class="content">
+                            {{>rsvpselection}}
+                        </div>
+                    </div>
+                {{/check}}
+                {{#check guest.rsvpStatus "no"}}
+                    <h3>You have declined this invitation</h3>
+                    <div class="ui styled fluid accordion">
+                        <div class="title">
+                            <i class="dropdown icon"></i>
+                            Click here to update your response.
+                        </div>
+                        <div class="content">
+                            {{>rsvpselection}}
+                        </div>
+                    </div>
+                {{/check}}
+                {{#check guest.rsvpStatus ""}}
+                    <h3>Please RSVP</h3>
+                    {{>rsvpselection}}
+                {{/check}}
             </div>
             {{#if showQuestions}}
-            <div class="ui segment">
-                {{>answerrsvpquestions}}
-            </div>
-                {{/if}}
+                <div class="ui segment">
+                    {{>answerrsvpquestions}}
+                </div>
+            {{/if}}
         </article>
     </div>
 </section>
+
+<script language='javascript'>
+    $(document).ready(function(){
+        $('.ui.accordion').accordion();
+    });
+</script>

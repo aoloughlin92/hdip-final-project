@@ -1,4 +1,3 @@
-<h3>Please RSVP</h3>
 <div class="ui form">
     <form action="/postRSVP/{{guest._id}}" method="POST">
     <div class="grouped inline fields">
@@ -18,3 +17,6 @@
     </div>
     </form>
 </div>
+<script>
+    $('input[value="{{guest.rsvpStatus}}"]'). attr("checked", "checked");
+</script>

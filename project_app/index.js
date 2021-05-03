@@ -73,6 +73,13 @@ process.on('unhandledRejection', err => {
     }
     return options.fn(this);
   });
+
+  hb.registerHelper('check', function(value, comparator, options) {
+    if(value === comparator){
+      return options.fn(this);
+    }
+    return options.inverse(this);
+  });
   //
   // var nodemailer = require('nodemailer');
   //
