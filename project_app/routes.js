@@ -5,6 +5,7 @@ const Events = require('./app/controllers/events');
 const Guests = require('./app/controllers/guests');
 const Requests = require('./app/controllers/requests');
 const Budget = require('./app/controllers/budget');
+const Questions = require('./app/controllers/questions');
 
 module.exports = [
   { method: 'GET', path: '/', config: Accounts.index },
@@ -25,8 +26,13 @@ module.exports = [
   { method: 'GET', path: '/event/{id}', config: Events.viewEvent },
   { method: 'GET', path: '/delete/{id}', config: Events.deleteEvent },
   { method: 'POST', path: '/rsvpmessage/{id}', config: Events.setWelcomeMessage },
-  { method: 'POST', path: '/rsvpquestion/{id}', config: Events.addQuestion },
   { method: 'GET', path: '/donations/{id}', config: Events.viewDonations },
+
+  { method: 'POST', path: '/rsvpquestion/{id}', config: Questions.addQuestion },
+  { method: 'GET', path: '/event/{id}/question/{questionid}', config: Questions.viewQuestion },
+  { method: 'GET', path: '/event/{id}/deletequestion/{questionid}', config: Questions.deleteQuestion },
+  { method: 'POST', path: '/event/{id}/updatequestion/{questionid}', config: Questions.editQuestion },
+
 
   { method: 'GET', path: '/guestlist/{id}', config: Guests.guestlist },
   { method: 'POST', path: '/addGuest/{id}', config: Guests.addGuest },

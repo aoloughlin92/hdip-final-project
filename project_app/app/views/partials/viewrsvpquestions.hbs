@@ -1,0 +1,32 @@
+<div >
+    {{#ifIsNotZero qCount}}
+        <div>
+            {{#each questions}}
+                <div class="ui segment">
+                    <div class="ui grid">
+                        <div class="ui twelve wide column">
+
+                            <div class="ui tiny header">
+                                {{question}}
+                            </div>
+                            Answers:
+                            {{#each answers}}
+                                <div style="margin-left: 10px">
+                                    {{this}}
+                                </div>
+                            {{/each}}
+                        </div>
+                        <div class="ui four wide column" style="text-align: right">
+                            <a href="/event/{{../event._id}}/question/{{_id}}"  class="ui green icon button"> <i class="icon edit"></i></a>
+                            <br/>
+                            <br/>
+                            <a href="/event/{{../event._id}}/deletequestion/{{_id}}"  class="ui red icon button"> <i class="icon trash"></i></a>
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    {{else}}
+        Nothing to display
+    {{/ifIsNotZero}}
+</div>

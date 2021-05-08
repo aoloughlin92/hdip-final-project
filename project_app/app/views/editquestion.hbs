@@ -1,0 +1,67 @@
+{{> mainmenu _id="events" }}
+<h1> {{event.title}}</h1>
+<section class="ui segment" >
+    <div class="ui grid" style="height: 100vh;">
+        <article class="three wide column" style=" background: lightgrey">
+            {{> verticlemenu _id="event" }}
+        </article>
+        <article class="twelve wide column">
+            <div class="ui grid ">
+                <div class="ui form twenty wide column">
+                    <div>
+                        <form action="/event/{{event._id}}/updatequestion/{{question._id}}" method="POST">
+                            <div class="one field">
+                                <div class="field">
+                                    <div class="text">Question<br/></div>
+                                    <div class="ui input">
+                                        <input type="text" name="question" value="{{question.question}}">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui checkbox">
+                                        <input type="checkbox" name="required">
+                                        <label>Make this a required question</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="text">Answers<br/></div>
+                                    <div class="ui input">
+                                        <input type="text" name="answer1" value="{{question.answers.[0]}}">
+                                    </div><br/>
+                                </div>
+                                <div class="field">
+                                    <div class="ui input">
+                                        <input type="text" name="answer2" value="{{question.answers.[1]}}">
+                                    </div><br/>
+                                </div>
+                                <div class="field">
+                                    <div class="ui input">
+                                        <input type="text" name="answer3" value="{{question.answers.[2]}}">
+                                    </div><br/>
+                                </div>
+                                <div class="field">
+                                    <div class="ui input">
+                                        <input type="text" name="answer4" value="{{question.answers.[3]}}">
+                                    </div><br/>
+                                </div>
+                                <div class="field">
+                                    <div class="ui input">
+                                        <input type="text" name="answer5" value="{{question.answers.[4]}}">
+                                    </div><br/>
+                                </div>
+                            </div>
+                            <button class="ui pink submit button">Add</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+<script>
+    $('.ui.toggle').checkbox({
+        onChecked: function () {  },
+        onUnchecked: function () { }
+    });
+</script>

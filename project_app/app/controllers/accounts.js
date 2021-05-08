@@ -8,13 +8,13 @@ const Accounts = {
   index: {
     auth: false,
     handler: function(request, h) {
-      return h.view('main', { title: 'Welcome to Donations' });
+      return h.view('main', { title: 'Wedoo!' });
     }
   },
   showSignup: {
     auth: false,
     handler: function(request, h) {
-      return h.view('signup', { title: 'Sign up for Donations' });
+      return h.view('signup', { title: 'Sign up for Wedoo!' });
     }
   },
   signup: {
@@ -66,7 +66,7 @@ const Accounts = {
   showLogin: {
     auth: false,
     handler: function(request, h) {
-      return h.view('login', { title: 'Login to Donations' });
+      return h.view('login', { title: 'Login to Wedoo!' });
     }
   },
   login: {
