@@ -86,5 +86,4 @@ hb.registerHelper("formatCalDate", function(date) {
     return options.inverse(this);
   });
 
-
 init();

@@ -39,7 +39,7 @@ const Guests = {
     handler: async function(request, h){
       try {
         const event = await Event.findOne({_id: request.params.id}).populate('guests').lean();
-        const guests = event.guests;
+        const guests= await Guest.find({event: request.params.id, type: 'guest'}).lean();
         return h.view('guestlist', {
           title: event.title,
           guests: guests,

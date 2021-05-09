@@ -6,6 +6,9 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Status</th>
+                    <th>Plus One</th>
+                    <th>Options</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -13,6 +16,10 @@
                     <tr>
                         <td> {{firstName}} {{lastName}} </td>
                         <td> {{email}} </td>
+                        <td> {{rsvpStatus}}</td>
+                        <td style="text-align: center"><i class="icon user">+{{plusOne.length}}</td>
+                        <td style="text-align: center"> <a href="/event/{{_id}}"  class="ui green icon button"> <i class="icon folder open"></i></a>
+                            <a href="/delete/{{_id}}"  class="ui red icon button"> <i class="icon trash"></i></a> </td>
                     </tr>
                 {{/each}}
                 </tbody>
