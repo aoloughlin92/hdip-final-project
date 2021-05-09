@@ -8,8 +8,19 @@
         </button>
         <a id="link" href="../wedoo_guestlist.xlsx" download hidden></a>
     </div>
+    <br/>
     <div>
+        <br/>
         When you're ready upload your excel file here:
-
+        <div >
+            <form class="ui form" action="/guestlist/{{event._id}}/uploadguestlist" method="POST"
+                  enctype="multipart/form-data">
+                <div class="field">
+                    <input type="file" class="input" name="excelfile"
+                           accept="text/plain, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                </div>
+                <button type="submit" value="Upload" class="ui pink button">Upload</button>
+            </form>
+        </div>
     </div>
 </section>

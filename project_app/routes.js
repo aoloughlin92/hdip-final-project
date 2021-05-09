@@ -28,6 +28,8 @@ module.exports = [
   { method: 'POST', path: '/rsvpmessage/{id}', config: Events.setWelcomeMessage },
   { method: 'GET', path: '/donations/{id}', config: Events.viewDonations },
 
+
+
   { method: 'POST', path: '/rsvpquestion/{id}', config: Questions.addQuestion },
   { method: 'GET', path: '/event/{id}/question/{questionid}', config: Questions.viewQuestion },
   { method: 'GET', path: '/event/{id}/deletequestion/{questionid}', config: Questions.deleteQuestion },
@@ -35,6 +37,7 @@ module.exports = [
 
 
   { method: 'GET', path: '/guestlist/{id}', config: Guests.guestlist },
+  { method: 'POST', path: '/guestlist/{id}/uploadguestlist', config: Guests.uploadGuestlist },
   { method: 'POST', path: '/addGuest/{id}', config: Guests.addGuest },
   { method: 'POST',path: '/rsvp', config: Guests.rsvp},
   { method: 'POST',path: '/rsvplogin', config: Guests.rsvplogin},

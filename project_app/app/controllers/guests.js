@@ -9,6 +9,8 @@ const ShortId = require('../utils/shortid');
 const RSVPLogin = require('../utils/rsvplogin');
 const Boom = require('@hapi/boom');
 const Joi = require('@hapi/joi');
+const ExcelHelper = require('../utils/excelhelper');
+
 
 const Guests = {
   addGuest: {
@@ -67,7 +69,7 @@ const Guests = {
           .takeover()
           .code(400);
       }
-  },
+    },
     handler: async function(request, h) {
       try {
         const payload = request.payload;
@@ -250,6 +252,24 @@ const Guests = {
         return h.redirect('/guest/'+ guest._id);
       }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  uploadGuestlist:{
+    payload: {
+      maxBytes: 209715200,
+      output: 'file',
+      parse: true,
+      multipart: true     // <-- this fixed the media type error
+    },
+    handler: async function(request, h) {
+      try {
+        const eventid = request.params.id;
+        const filepath = request.payload.excelfile.path;
+        await ExcelHelper.parseExcel(filepath,eventid);
+        return h.redirect('/guestlist/'+eventid);
+      } catch (err) {
+        return h.redirect('/events', { errors: [{ message: err.message }] });
       }
     }
   }

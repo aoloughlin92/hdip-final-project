@@ -135,7 +135,7 @@ const Events = {
         return h.redirect('/events', { errors: [{ message: err.message }] });
       }
     }
-  },
+  }
 };
 
 module.exports = Events;
