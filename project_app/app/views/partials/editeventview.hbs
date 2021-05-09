@@ -13,9 +13,9 @@
                         </div>
                         <div class="field">
                             <div class="text">Date<br/></div>
-                            <div class="ui calendar" value="{{event.date}}">
+                            <div class="ui calendar">
                                 <div class="ui input" name="date">
-                                    <input type="date" name="date" value="{{event.date}}" >
+                                    <input type="date" id="myDate" name="date" >
                                 </div>
                             </div>
                         </div>
@@ -34,3 +34,7 @@
         </div>
     </div>
 </section>
+
+<script>
+    document.getElementById("myDate").value = "{{formatCalDate event.date}}";
+</script>

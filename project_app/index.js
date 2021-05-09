@@ -67,6 +67,11 @@ process.on('unhandledRejection', err => {
     return moment(date).format(formatToUse);
   });
 
+hb.registerHelper("formatCalDate", function(date) {
+  const formatToUse = ("yyyy-MM-DD");
+  return moment(date).format(formatToUse);
+});
+
   hb.registerHelper('ifIsNotZero', function(value, options) {
     if(value === 0) {
       return options.inverse(this);
