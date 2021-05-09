@@ -27,6 +27,8 @@ module.exports = [
   { method: 'GET', path: '/delete/{id}', config: Events.deleteEvent },
   { method: 'POST', path: '/rsvpmessage/{id}', config: Events.setWelcomeMessage },
   { method: 'GET', path: '/donations/{id}', config: Events.viewDonations },
+  { method: 'GET', path: '/event/{id}/edit', config: Events.showEditEvent},
+  { method: 'GET', path: '/editevent/{id}', config: Events.editEvent},
 
 
 

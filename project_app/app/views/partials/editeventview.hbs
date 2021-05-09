@@ -1,0 +1,36 @@
+<section class="ui raised segment">
+
+    <div class="ui grid ">
+        <div class="ui form twenty wide column">
+            <div class="ui stacked segment">
+                <form action="/editevent/{{event._id}}" method="POST">
+                    <div class="two fields">
+                        <div class="field">
+                            <div class="text">Title<br/></div>
+                            <div class="ui input">
+                                <input type="text" name="title" value="{{event.title}}">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="text">Date<br/></div>
+                            <div class="ui calendar" value="{{event.date}}">
+                                <div class="ui input" name="date">
+                                    <input type="date" name="date" value="{{event.date}}" >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="one field">
+                        <div class="field">
+                            <div class="text">Further Information<br/></div>
+                            <div class="ui multiline input">
+                                <textarea name="info" style="white-space: pre-wrap">{{event.info}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="ui pink submit button">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

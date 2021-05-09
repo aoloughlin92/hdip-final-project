@@ -16,6 +16,10 @@ const ExcelHelper={
 
     for(let i=0; i< data.length;i++) {
       const shortId = await ShortId.generateShortGuestId();
+      let type = "guest";
+      if(data[i].isPlusOne == true){
+        type = "plusOne";
+      }
       let newGuest = new Guest({
         event: event,
         firstName: data[i].firstName,
@@ -28,17 +32,26 @@ const ExcelHelper={
         county: data[i].county,
         postcode: data[i].postcode,
         country: data[i].country,
-        rsvpStatus: data[i].rsvpStatus
+        rsvpStatus: data[i].rsvpStatus,
+        type: type
       });
       const guest = await newGuest.save();
       numToIDMap.set(data[i].xlsGuestNumber, guest._id);
+      event.guests.push(guest);
+    }
+
+    //plus one data needs to be in separate loop to account for cases when plus one information is before the original
+    //guest information on the excel file.
+    for(let i=0; i< data.length;i++)
+    {
       if(data[i].isPlusOne==true){
+        const plusOneGuestId = numToIDMap.get(data[i].xlsGuestNumber);
+        const plusOneGuest = await Guest.findOne({ _id: plusOneGuestId});
         const originalGuestId = numToIDMap.get(data[i].plusOneofGuestNo);
         const originalGuest = await Guest.findOne({ _id: originalGuestId});
-        originalGuest.plusOne.push(guest);
+        originalGuest.plusOne.push(plusOneGuest);
         await originalGuest.save();
       }
-      event.guests.push(guest);
     }
     await event.save();
   }

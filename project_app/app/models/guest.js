@@ -21,6 +21,7 @@ const guestSchema = new Schema({
   country: String,
   rsvpStatus: String,
   shortGuestId: String,
+  invitationStatus: String,
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'

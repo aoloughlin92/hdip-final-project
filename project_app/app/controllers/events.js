@@ -86,10 +86,7 @@ const Events = {
         await newRequest.save();
         let subject = user.firstName+ " "+ user.lastName+" has sent you a request to host "+event.title;
         await EmailHelper.sendEmail(newRequest, subject);
-        return h.view('event', {
-          title: event.title,
-          event: event
-        });
+        return h.redirect('/event/'+event._id);
       }catch(err){
         return h.redirect('/events', { errors: [{ message: err.message }] });
       }
@@ -102,10 +99,7 @@ const Events = {
         event.welcomeMessage = request.payload.message;
         await event.save();
         event = await Event.findOne({ _id: request.params.id }).lean();
-        return h.view('event', {
-          title: event.title,
-          event: event
-        });
+        return h.redirect('/event/'+event._id);
       } catch (err) {
         return h.redirect('/events', { errors: [{ message: err.message }] });
       }
@@ -134,6 +128,22 @@ const Events = {
       } catch (err) {
         return h.redirect('/events', { errors: [{ message: err.message }] });
       }
+    }
+  },
+  showEditEvent:{
+    handler: async function(request, h) {
+      let event = await Event.findOne({ _id: request.params.id }).populate('questions').lean();
+      return h.view('editevent', {
+        title: event.title,
+        event: event
+      });
+    }
+  },
+  editEvent:{
+    handler: async function(request, h) {
+      console.log(request.payload);
+      let event = await Event.findOne({ _id: request.params.id }).populate('questions').lean();
+      return h.redirect('/event/'+event._id);
     }
   }
 };

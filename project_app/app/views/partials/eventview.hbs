@@ -3,7 +3,8 @@
         <article class="twenty wide column">
             <b>Date: </b> {{formatDate event.date}}<br/>
             <br/><b>Information: </b><br/>
-            <div style="white-space: pre;">{{event.info}}</div>
+            <div style="white-space: pre-wrap;">{{event.info}}</div><br/>
+            <a class="ui pink button" href="/event/{{event._id}}/edit">Edit</a>
         </article>
     </div>
 </section>
