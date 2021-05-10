@@ -78,6 +78,7 @@ const Events = {
         stats: event.stats,
         grandToDoTotal: event.todos.length,
         eventStatistics: eventStatistics,
+        totalguests: event.guests.length,
         qCount: event.questions.length
       });
     }

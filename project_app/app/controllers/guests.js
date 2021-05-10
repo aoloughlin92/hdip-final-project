@@ -21,6 +21,7 @@ const Guests = {
         const shortId = await ShortId.generateShortGuestId();
         const newGuest = new Guest({
           event: event,
+          type: 'guest',
           firstName: data.fname,
           lastName: data.lname,
           email: data.email,
@@ -118,7 +119,7 @@ const Guests = {
     handler: async function(request, h){
       try {
         let loggedin = RSVPLogin.isUserLoggedIn(request.auth.credentials.id,request.params.id);
-        const guest = await Guest.findOne({_id: request.params.id}).lean();
+        const guest = await Guest.findOne({_id: request.params.id}).populate('plusOne').lean();
         const event = await Event.findOne({guests: request.params.id}).populate('hosts')
           .populate('questions').lean();
         let showQuestions = false;
@@ -245,9 +246,27 @@ const Guests = {
   updateRSVP:{
     handler: async function(request, h){
       try {
-        let loggedin = RSVPLogin.isUserLoggedIn(request.auth.credentials.id,request.params.id);
         let guest = await Guest.findOne({_id: request.params.id});
-        guest.rsvpStatus = request.payload.rsvpstatus;
+        const payload = request.payload;
+        guest.rsvpStatus = payload.rsvpstatus;
+        console.log("set "+guest.firstName+" to "+guest.rsvpStatus);
+        let keys = Object.keys(payload);
+        for(let i=0; i<keys.length;i++){
+          let key = keys[i];
+          if(key == "rsvpstatus"){
+            // do nothing
+          }
+          else{
+            let split = key.split(".");
+            let plusOneId = split[1];
+            let plusOne = await Guest.findOne({_id: plusOneId});
+            plusOne.rsvpStatus = payload[key];
+            await plusOne.save();
+            console.log("set "+plusOne.firstName+" to "+plusOne.rsvpStatus);
+          }
+
+
+        }
         await guest.save();
         return h.redirect('/guest/'+ guest._id);
       }catch(err){

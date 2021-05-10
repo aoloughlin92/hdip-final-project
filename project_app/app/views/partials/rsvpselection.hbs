@@ -1,22 +1,42 @@
 <div class="ui form">
     <form action="/postRSVP/{{guest._id}}" method="POST">
     <div class="grouped inline fields">
+        <label>{{guest.firstName}} {{guest.lastName}}</label>
         <div class="field">
             <div class="ui radio checkbox">
-                <input type="radio" name="rsvpstatus" value="yes">
+                <input type="radio" name="rsvpstatus" value="yes" id="guestinput">
                 <label>Yes, I'm attending!</label>
             </div>
         </div>
         <div class="field">
             <div class="ui radio checkbox">
-                <input type="radio" name="rsvpstatus" value="no">
+                <input type="radio" name="rsvpstatus" value="no" id="guestinput">
                 <label>No, can't make it</label>
             </div>
         </div>
+        <script>
+            $('input[id=guestinput][value="{{guest.rsvpStatus}}"]'). attr("checked", "checked");
+        </script>
+        {{#each guest.plusOne}}
+            <label>{{firstName}} {{lastName}}</label>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="rsvpstatus.{{_id}}" value="yes">
+                    <label>Yes, I'm attending!</label>
+                </div>
+            </div>
+            <div class="field">
+                <div class="ui radio checkbox">
+                    <input type="radio" name="rsvpstatus.{{_id}}" value="no">
+                    <label>No, can't make it</label>
+                </div>
+            </div>
+            <script>
+                $('input[name="rsvpstatus.{{_id}}"][value="{{rsvpStatus}}"]'). attr("checked", "checked");
+            </script>
+        {{/each}}
         <button class="ui pink submit button">Send</button>
     </div>
     </form>
 </div>
-<script>
-    $('input[value="{{guest.rsvpStatus}}"]'). attr("checked", "checked");
-</script>
+
