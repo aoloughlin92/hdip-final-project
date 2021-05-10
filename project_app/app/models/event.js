@@ -29,6 +29,10 @@ const eventSchema = new Schema({
   donations: [{
     type: Schema.Types.ObjectId,
     ref: 'Donation'
+  }],
+  stats:[{
+    type: Schema.Types.ObjectId,
+    ref: 'Stat'
   }]
 });
 

@@ -1,12 +1,22 @@
 {{> mainmenu _id="events" }}
 <h1> {{event.title}}</h1>
-<section class="ui segment" >
+<section >
     <div class="ui grid" style="height: 100vh;">
         <article class="three wide column" style=" background: lightgrey">
             {{> verticlemenu _id="event" }}
         </article>
         <article class="twelve wide column">
             {{>eventview}}
+            <div class="ui styled fluid accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Stats
+                </div>
+                <div class="content">
+                    {{>eventstats}}
+                </div>
+            </div>
+            <br/>
             <div class="ui styled fluid accordion">
                 <div class="title">
                     <i class="dropdown icon"></i>

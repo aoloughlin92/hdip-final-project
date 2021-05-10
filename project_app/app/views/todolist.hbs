@@ -1,13 +1,13 @@
 {{> mainmenu _id="todolist" }}
 <h1>{{event.title}}</h1>
-<section class="ui stacked segment">
+<section>
     <div class="ui grid" style="height: 100vh;">
         <aside class="three wide column" style="background: lightgrey">
             {{> verticlemenu _id="todolist" }}
         </aside>
         <article class="twelve wide column">
+            {{> mytodosview}}
             {{> createtodo}}
-            <div class="ui  divider"></div>
             {{> todolist }}
         </article>
     </div>

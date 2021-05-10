@@ -1,23 +1,22 @@
 <section class="ui raised segment">
-    <h2>To Do List</h2>
+    <h2>My To Dos</h2>
     <div class="ui grid">
         <article class="twenty wide column">
-            <table class="ui celled table segment">
+            {{#ifIsNotZero mytodos.length}}
+            <table class="ui celled stackable table segment">
                 <thead>
                 <tr>
                     <th>Title</th>
                     <th>Budget</th>
-                    <th>Assigned</th>
                     <th>Status</th>
                     <th>Options</th>
                 </tr>
                 </thead>
                 <tbody>
-                {{#each todos}}
+                {{#each mytodos}}
                     <tr>
                         <td> {{title}} </td>
                         <td> {{budget}} </td>
-                        <td> {{assigned.firstName}} {{assigned.lastName}}</td>
                         <td> {{status}} </td>
                         <td><a href="/event/{{_id}}"  class="ui green icon button"> <i class="icon folder open"></i></a>
                             <a href="/delete/{{_id}}"  class="ui red icon button"> <i class="icon trash"></i></a></td>
@@ -25,6 +24,7 @@
                 {{/each}}
                 </tbody>
             </table>
+            {{/ifIsNotZero}}
         </article>
     </div>
 </section>

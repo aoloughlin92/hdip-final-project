@@ -1,0 +1,87 @@
+<section class="ui raised segment">
+    <div class="ui grid">
+        <article class="twenty wide column">
+            <div class="ui segment">
+                <h4>To Do List</h4>
+                <table class="ui definition celled table segment">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Not Started</th>
+                        <th>In Progress</th>
+                        <th>Complete</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each stats}}
+                        <tr>
+                            <td>{{hostName}}</td>
+                            <td>{{notStarted}} </td>
+                            <td>{{inProgress}} </td>
+                            <td>{{complete}} </td>
+                            <td>{{total}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        <td>{{eventStatistics.totalNotStarted}}</td>
+                        <td>{{eventStatistics.totalInProgress}}</td>
+                        <td>{{eventStatistics.totalComplete}}</td>
+                        <td>{{grandToDoTotal}}</td>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="ui segment">
+                <h4>Guests</h4>
+                <table class="ui definition celled table segment">
+                    <tbody>
+                        <tr>
+                            <td>Attending</td>
+                            <td>{{eventStatistics.totalAttending}}</td>
+                        </tr>
+                        <tr>
+                            <td>Not Attending</td>
+                            <td>{{eventStatistics.totalNotAttending}}</td>
+                        </tr>
+                        <tr>
+                            <td>No Response</td>
+                            <td>{{eventStatistics.totalNoResponse}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td><b>{{event.guests.length}}</b></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div class="ui segment">
+                <h4>Budget</h4>
+                <table class="ui definition celled table segment">
+                    <tbody>
+                    <tr>
+                        <td> Total Budget: </td>
+                        <td> {{eventStatistics.totalBudget}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="ui segment">
+                <h4>Donations</h4>
+                <table class="ui definition celled table segment">
+                    <tbody>
+                    <tr>
+                        <td> Total Donations: </td>
+                        <td> {{eventStatistics.totalDonations}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+    </div>
+</section>

@@ -7,6 +7,8 @@ const Event = require('../models/event');
 const Request = require('../models/request');
 const Question = require('../models/question');
 const EmailHelper = require('../utils/emailHelper');
+const CalculateStats = require('../utils/calculateStats');
+const Stat = require('../models/stat');
 
 const Events = {
   showEvents: {
@@ -31,7 +33,7 @@ const Events = {
     handler: async function(request, h){
       try {
         const id = request.auth.credentials.id;
-        const user = await User.findById(id);
+        const user = await User.findById(id).lean();;
         const data = request.payload;
         const shortId = await ShortId.generateShortEventId();
         const newEvent = new Event({
@@ -40,6 +42,12 @@ const Events = {
           info: data.info,
           shortEventId: shortId
         });
+        const newStat = new Stat({
+          host: user,
+          hostName: user.firstName+" "+user.lastName
+        });
+        await newStat.save();
+        newEvent.stats.push(newStat);
         newEvent.hosts.push(user);
         await newEvent.save();
         return h.redirect('/events');
@@ -61,11 +69,15 @@ const Events = {
   },
   viewEvent: {
     handler: async function(request, h) {
-      let event = await Event.findOne({ _id: request.params.id }).populate('questions').lean();
+      const eventStatistics = await CalculateStats.calculateToDoStats(request.params.id);
+      let event = await Event.findOne({ _id: request.params.id }).populate('questions').populate('stats').lean();
       return h.view('event', {
         title: event.title,
         event: event,
         questions: event.questions,
+        stats: event.stats,
+        grandToDoTotal: event.todos.length,
+        eventStatistics: eventStatistics,
         qCount: event.questions.length
       });
     }
@@ -85,7 +97,7 @@ const Events = {
         });
         await newRequest.save();
         let subject = user.firstName+ " "+ user.lastName+" has sent you a request to host "+event.title;
-        await EmailHelper.sendEmail(newRequest, subject);
+        //await EmailHelper.sendEmail(newRequest, subject); //todo
         return h.redirect('/event/'+event._id);
       }catch(err){
         return h.redirect('/events', { errors: [{ message: err.message }] });

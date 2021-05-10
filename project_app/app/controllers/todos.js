@@ -16,10 +16,14 @@ const Todos = {
               path: 'assigned'
             }
         }).populate('hosts').lean();
+        let mytodos  = event.todos.filter(function(item){
+          return (JSON.stringify(item.assigned._id) === JSON.stringify(request.auth.credentials.id))
+        });
         return h.view('todolist', {
           title: 'Todos so far',
           todos: event.todos,
-          event: event
+          event: event,
+          mytodos: mytodos
         });
       }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
@@ -36,7 +40,7 @@ const Todos = {
         const newTodo = new Todo({
           title: data.title,
           budget: data.budget,
-          assigned: data._id,
+          assigned: data.assigned,
           status: data.status
         });
         await newTodo.save();

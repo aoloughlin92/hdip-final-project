@@ -2,6 +2,7 @@
 const User = require('../models/user');
 const Event = require('../models/event');
 const Request = require('../models/request');
+const Stat = require('../models/stat');
 
 const Requests = {
   viewRequest: {
@@ -32,7 +33,14 @@ const Requests = {
         const id = request.auth.credentials.id;
         const user = await User.findById(id);
         let event = await Event.findOne({_id: req.event });
+        //statistics for hosts
+        const newStat = new Stat({
+          host: user,
+          hostName: user.firstName+" "+user.lastName
+        });
+        await newStat.save();
         event.hosts.push(user);
+        event.stats.push(newStat);
         event.save();
         await Request.deleteOne({ _id: request.params.id });
         return h.redirect('/events');
