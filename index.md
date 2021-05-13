@@ -1,12 +1,10 @@
-## Welcome to GitHub Pages
+## Wedoo - An Event Planning App
 
-You can use the [editor on GitHub](https://github.com/aoloughlin92/hdip-final-project/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Wedoo is an event planning web application. Wedoo is built using the Hapi framework and a handlebars front end. The app is targeted at wedding planning but can be used for all types of events. The application includes a PayPal donation function to allow guests to donate to fundraisers they are attending or to send a gift to a couple getting married. Wedoo also includes guestlist management functionality which consists of electronic RSVPs and optional Excel file upload. Wedoo allows hosts to automatically send email requests to guests to add their information or RSVP.  
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Demo Video
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Insert Video Link here
 
 ```markdown
 Syntax highlighted code block
