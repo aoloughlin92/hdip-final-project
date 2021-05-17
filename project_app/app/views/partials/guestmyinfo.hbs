@@ -1,0 +1,40 @@
+<div class="ui segment">
+    <div class="ui stacked fluid form segment">
+        <form action="/updatemyinfo/{{guest._id}}" method="POST">
+            <h3 class="ui header">My Info</h3>
+            <div class="two fields">
+                <div class="field">
+                    <label>First Name</label> <input value="{{guest.firstName}}" type="text" name="firstName">
+                </div>
+                <div class="field">
+                    <label>Last Name</label> <input value="{{guest.lastName}}" type="text" name="lastName">
+                </div>
+            </div>
+            <div class="field">
+                <label>Email</label> <input value="{{guest.email}}" type="text" name="email">
+            </div>
+            <div class="field">
+                <label>Address Line 1</label> <input value="{{guest.address1}}" type="text" name="address1">
+            </div>
+            <div class="field">
+                <label>Address Line 2</label> <input value="{{guest.address2}}" type="text" name="address2">
+            </div>
+            <div class="field">
+                <label>Address Line 3</label> <input value="{{guest.address3}}" type="text" name="address3">
+            </div>
+            <div class="three fields">
+                <div class="field">
+                    <label>County</label> <input value="{{guest.county}}" type="text" name="county">
+                </div>
+                <div class="field">
+                    <label>Post Code</label> <input value="{{guest.postcode}}" type="text" name="postcode">
+                </div>
+                <div class="field">
+                    <label>Country</label> <input value="{{guest.country}}" type="text" name="country">
+                </div>
+            </div>
+            <button class="ui blue submit button">Save</button>
+        </form>
+        {{> error }}
+    </div>
+</div>

@@ -27,10 +27,10 @@ const Guests = {
           email: data.email,
           shortGuestId: shortId
         });
-        await newGuest.save();
+        const guest = await newGuest.save();
         event.guests.push(newGuest);
         await event.save();
-        return h.redirect('/guestlist/'+event._id);
+        return h.redirect('/guestlist/'+event._id+'/viewguest/'+guest._id);
       }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
       }
@@ -144,13 +144,17 @@ const Guests = {
     handler: async function(request, h){
       try {
         let loggedin = RSVPLogin.isUserLoggedIn(request.auth.credentials.id,request.params.id);
-        const guest = await Guest.findOne({_id: request.params.id}).lean();
-        const event = await Event.findOne({guests: request.params.id}).lean();
+        const user = await Guest.findOne({_id: request.params.id}).lean();
+        const event = await Event.findOne({guests: request.params.id}).populate("donations").lean();
+        const donations = event.donations.filter(function(item){
+          return (JSON.stringify(item.guest._id) === JSON.stringify(user._id))
+        });
         return h.view('guestdonation', {
           title: event.title,
-          guest: guest,
+          guest: user,
           event: event,
-          loggedin: loggedin
+          loggedin: loggedin,
+          donations: donations
         });
       }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
@@ -209,7 +213,7 @@ const Guests = {
     handler: async function(request, h){
       try {
         let loggedin = RSVPLogin.isUserLoggedIn(request.auth.credentials.id,request.params.id);
-        const guest = await Guest.findOne({_id: request.params.id}).lean();
+        const guest = await Guest.findOne({_id: request.params.id}).populate('plusOne').lean();
         const event = await Event.findOne({guests: request.params.id}).lean();
         return h.view('guestinfo', {
           title: event.title,
@@ -249,7 +253,6 @@ const Guests = {
         let guest = await Guest.findOne({_id: request.params.id});
         const payload = request.payload;
         guest.rsvpStatus = payload.rsvpstatus;
-        console.log("set "+guest.firstName+" to "+guest.rsvpStatus);
         let keys = Object.keys(payload);
         for(let i=0; i<keys.length;i++){
           let key = keys[i];
@@ -262,10 +265,7 @@ const Guests = {
             let plusOne = await Guest.findOne({_id: plusOneId});
             plusOne.rsvpStatus = payload[key];
             await plusOne.save();
-            console.log("set "+plusOne.firstName+" to "+plusOne.rsvpStatus);
           }
-
-
         }
         await guest.save();
         return h.redirect('/guest/'+ guest._id);
@@ -291,7 +291,136 @@ const Guests = {
         return h.redirect('/events', { errors: [{ message: err.message }] });
       }
     }
-  }
+  },
+  editGuest:{
+    handler: async function(request, h){
+      try {
+
+        let guest = await Guest.findOne({_id: request.params.guestid});
+        guest.firstName = request.payload.firstName;
+        guest.lastName = request.payload.lastName;
+        guest.email = request.payload.email;
+        guest.address1 = request.payload.address1;
+        guest.address2 = request.payload.address2;
+        guest.address3 = request.payload.address3;
+        guest.county = request.payload.county;
+        guest.postcode = request.payload.postcode;
+        guest.country = request.payload.country;
+        await guest.save();
+        return h.redirect('/guestlist/'+request.params.id);
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  viewGuest:{
+    handler: async function(request, h){
+      try {
+        let guest = await Guest.findOne({_id: request.params.guestid}).populate('plusOne').lean();
+        let event = await Event.findOne({_id: request.params.id}).lean();
+        return h.view('guestview', {
+          title: guest.firstName+" "+guest.lastName,
+          guest: guest,
+          event: event
+        });
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  deleteGuest:{
+    handler: async function(request, h){
+      try {
+        const event = await Event.findOne({_id: request.params.id});
+        const guest = await Guest.findOne({_id: request.params.guestid});
+        let index =  event.guests.indexOf(request.params.guestid);
+        if(index > -1){
+          event.guests.splice(index,1);
+        }
+        if(guest.plusOne.length>0){
+          for(let i=0; i<guest.plusOne.length;i++){
+            index =  event.guests.indexOf(guest.plusOne[i]);
+            if(index > -1){
+              event.guests.splice(index,1);
+            }
+          }
+        }
+        await Guest.findOneAndDelete({_id: request.params.guestid});
+        await event.save();
+        return h.redirect('/guestlist/'+request.params.id);
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  deletePlusOne:{
+    handler: async function(request, h){
+      try {
+        const event = await Event.findOne({_id: request.params.id});
+        const guest = await Guest.findOne({_id: request.params.guestid});
+        const plusOne = await Guest.findOne({_id: request.params.plusoneid});
+        let index =  event.guests.indexOf(request.params.plusoneid);
+        if(index > -1){
+          event.guests.splice(index,1);
+        }
+        index =  guest.plusOne.indexOf(request.params.plusoneid);
+        if(index > -1){
+          guest.plusOne.splice(index,1);
+        }
+        await Guest.findOneAndDelete({_id: request.params.plusoneid});
+        await guest.save()
+        await event.save();
+        return h.redirect('/guestlist/'+request.params.id+'/viewguest/'+request.params.guestid);
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  editPlusOne:{
+    handler: async function(request, h){
+      try {
+
+        let plusOne = await Guest.findOne({_id: request.params.plusoneid});
+        plusOne.firstName = request.payload.firstName;
+        plusOne.lastName = request.payload.lastName;
+        await plusOne.save();
+        return h.redirect('/guestlist/'+request.params.id+'/viewguest/'+request.params.guestid);
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  updatePlusOne:{
+    handler: async function(request, h){
+      try {
+
+        let plusOne = await Guest.findOne({_id: request.params.plusoneid});
+        plusOne.firstName = request.payload.firstName;
+        plusOne.lastName = request.payload.lastName;
+        await plusOne.save();
+        return h.redirect('/myinfo/'+request.params.guestid);
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  addPlusOne:{
+    handler: async function(request, h){
+      try {
+        let guest = await Guest.findOne({_id: request.params.guestid});
+        const plusOne = new Guest({
+          firstName: request.payload.fname,
+          lastName: request.payload.lname
+        });
+        await plusOne.save();
+        guest.plusOne.push(plusOne);
+        await guest.save();
+        return h.redirect('/guestlist/'+request.params.id+'/viewguest/'+request.params.guestid);
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
 };
 
 module.exports = Guests;

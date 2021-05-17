@@ -1,0 +1,23 @@
+{{#ifIsNotZero donations.length}}
+<section class="ui raised segment">
+    <h3>You have already donated</h3>
+    <table class="ui celled table segment">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each donations}}
+            <tr>
+                <td>{{formatDate date}}</td>
+                <td>${{amount}} </td>
+                <td>{{message}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</section>
+{{/ifIsNotZero}}

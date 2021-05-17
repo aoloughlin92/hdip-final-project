@@ -1,0 +1,16 @@
+{{> mainmenu _id="todolist" }}
+<h1>{{guest.firstName}} {{guest.lastName}}</h1>
+<section>
+    <div class="ui grid" style="height: 100vh;">
+        <aside class="three wide column" style="background: lightgrey">
+            {{> verticlemenu _id="guestlist" }}
+        </aside>
+        <article class="twelve wide column">
+            {{>viewguestinfo}}
+                    {{>addplusone}}
+                {{#ifIsNotZero guest.plusOne.length}}
+            {{>viewplusoneinfo}}
+                {{/ifIsNotZero}}
+        </article>
+    </div>
+</section>

@@ -19,8 +19,8 @@
                         <td> {{budget}} </td>
                         <td> {{assigned.firstName}} {{assigned.lastName}}</td>
                         <td> {{status}} </td>
-                        <td><a href="/event/{{_id}}"  class="ui green icon button"> <i class="icon folder open"></i></a>
-                            <a href="/delete/{{_id}}"  class="ui red icon button"> <i class="icon trash"></i></a></td>
+                        <td><a href="/todolist/{{../event._id}}/todo/{{_id}}"  class="ui green icon button"> <i class="icon folder open"></i></a>
+                            <a href="/todolist/{{../event._id}}/delete/{{_id}}"  class="ui red icon button"> <i class="icon trash"></i></a></td>
                     </tr>
                 {{/each}}
                 </tbody>

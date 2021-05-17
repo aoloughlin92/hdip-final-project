@@ -1,0 +1,20 @@
+<div class="ui segment">
+    <div class="ui stacked fluid form segment">
+        <h3 class="ui header">PlusOnes</h3>
+        {{#each guest.plusOne}}
+            <form action="/guest/{{../guest._id}}/editplusone/{{_id}}" method="POST">
+                <div class="two fields">
+                    <div class="field">
+                        <label>First Name</label> <input value="{{firstName}}" type="text" name="firstName">
+                    </div>
+                    <div class="field">
+                        <label>Last Name</label> <input value="{{lastName}}" type="text" name="lastName">
+                    </div>
+                </div>
+                <button class="ui blue submit button">Save</button>
+            </form>
+            <br/>
+        {{/each}}
+        {{> error }}
+    </div>
+</div>

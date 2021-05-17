@@ -1,0 +1,72 @@
+{{> mainmenu _id="todolist" }}
+<h1>{{event.title}}</h1>
+<section>
+    <div class="ui grid" style="height: 100vh;">
+        <aside class="three wide column" style="background: lightgrey">
+            {{> verticlemenu _id="todolist" }}
+        </aside>
+        <article class="twelve wide column">
+        <section class="ui raised segment">
+            <h2>Edit To Do</h2>
+            <div class="ui grid ">
+                <div class="ui form twenty wide column">
+                    <div class="ui stacked segment">
+                        <form action="/todolist/{{event._id}}/edit/{{todo._id}}" method="POST">
+                            <div class="four fields">
+                                <div class="field">
+                                    <div class="text">Title<br/></div>
+                                    <div class="ui input">
+                                        <input type="text" name="title" value="{{todo.title}}">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="text">Budget<br/></div>
+                                    <div class="ui labeled input">
+                                        <label for="budget" class="ui label">€</label>
+                                        <input type="text" value="{{todo.budget}}" name="budget">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="text">Assign To<br/></div>
+                                    <div class="ui fluid selection dropdown">
+                                        <input type="hidden" name="assigned" value="{{todo.assigned}}">
+                                        <i class="dropdown icon"></i>
+                                        <div class="default text">Select Host</div>
+                                        <div class="menu">
+                                            {{#each event.hosts}}
+                                                <div class="item" data-value="{{_id}}">
+                                                    {{firstName}} {{lastName}}
+                                                </div>
+                                            {{/each}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="text">Status<br/></div>
+                                    <div class="ui fluid selection dropdown">
+                                        <input type="hidden" name="status" value="{{todo.status}}">
+                                        <i class="dropdown icon"></i>
+                                        <div class="default text">Set Status</div>
+                                        <div class="menu">
+                                            <div class="item" data-value="not_started">
+                                                Not Started
+                                            </div>
+                                            <div class="item" data-value="in_progress">
+                                                In Progress
+                                            </div>
+                                            <div class="item" data-value="complete">
+                                                Complete
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="ui blue submit button">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </article>
+    </div>
+</section>

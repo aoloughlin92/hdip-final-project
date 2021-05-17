@@ -9,8 +9,11 @@ const Requests = {
     auth: false,
     handler: async function(request, h) {
       try{
-        let req = await Request.findOne({ _id: request.params.id }).lean();
-        return h.view('request');
+        let req = await Request.findOne({ _id: request.params.id }).populate('sentBy').populate('event').lean();
+        return h.view('request',{
+          title: "New Request",
+          req: req
+        });
       }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
       }

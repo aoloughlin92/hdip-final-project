@@ -19,6 +19,9 @@ module.exports = [
 
   { method: 'POST', path: '/createToDo/{id}', config: Todos.createToDo },
   { method: 'GET', path: '/todolist/{id}', config: Todos.todolist },
+  { method: 'GET', path: '/todolist/{id}/todo/{todoid}', config: Todos.viewTodo },
+  { method: 'GET', path: '/todolist/{id}/delete/{todoid}', config: Todos.deleteTodo },
+  { method: 'POST', path: '/todolist/{id}/edit/{todoid}', config: Todos.editTodo },
 
   { method: 'POST', path: '/addHost/{id}', config: Events.addHost },
   { method: 'POST', path: '/createEvent', config: Events.createEvent },
@@ -50,6 +53,13 @@ module.exports = [
   { method: 'POST', path: '/guest/{id}/donate', config: Guests.donate},
   { method: 'GET', path: '/guestdonation/{id}', config: Guests.showDonation},
   { method: 'POST', path: '/guest/{id}/paypal-transaction-complete', config: Guests.donationComplete},
+  { method: 'POST', path: '/guestlist/{id}/editguest/{guestid}', config: Guests.editGuest },
+  { method: 'GET', path: '/guestlist/{id}/viewguest/{guestid}', config: Guests.viewGuest },
+  { method: 'GET', path: '/guestlist/{id}/deleteguest/{guestid}', config: Guests.deleteGuest },
+  { method: 'POST', path: '/guestlist/{id}/guest/{guestid}/editplusone/{plusoneid}', config: Guests.editPlusOne },
+  { method: 'POST', path: '/guestlist/{id}/guest/{guestid}/addplusone', config: Guests.addPlusOne },
+  { method: 'GET', path: '/guestlist/{id}/guest/{guestid}/deleteplusone/{plusoneid}', config: Guests.deletePlusOne },
+  { method: 'POST', path: '/guest/{guestid}/editplusone/{plusoneid}', config: Guests.updatePlusOne },
 
 
   { method: 'GET', path: '/request/{id}', config: Requests.viewRequest },

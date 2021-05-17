@@ -51,7 +51,56 @@ const Todos = {
         return h.view('main', {errors: [{ message: err.message}] });
       }
     }
-  }
+  },
+  editTodo:  {
+    handler: async function(request, h){
+      try {
+        const data = request.payload;
+        const todo = await Todo.findOne({_id: request.params.todoid});
+        todo.title = data.title;
+        todo.budget = data.budget;
+        todo.assigned = data.assigned;
+        todo.status = data.status;
+        await todo.save();
+        return h.redirect('/todolist/'+ request.params.id);
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  viewTodo:  {
+    handler: async function(request, h){
+      try {
+        const event = await Event.findOne({ _id: request.params.id }).populate('hosts').lean();
+        const todo = await Todo.findOne({_id: request.params.todoid}).lean();
+        return h.view('edittodo', {
+          title: 'Edit Todo',
+          todo: todo,
+          event: event
+        });
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  deleteTodo:  {
+    handler: async function(request, h){
+      try {
+        const todoid =  request.params.todoid
+        const event = await Event.findOne({_id: request.params.id});
+        const index =  event.todos.indexOf(todoid);
+        if(index > -1){
+          event.todos.splice(index,1);
+        }
+        await Todo.findOneAndDelete({_id: todoid});
+        await event.save();
+        return h.redirect('/todolist/'+ event._id);
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+
 };
 
 module.exports = Todos;
