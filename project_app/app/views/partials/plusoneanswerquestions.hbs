@@ -1,6 +1,6 @@
-<h3>Please answer the below questions</h3>
+<h3>Questions - {{plusOne.firstName}} {{plusOne.lastName}}</h3>
 <div class="ui form">
-    <form action="/answerquestions/{{guest._id}}" method="POST">
+    <form action="/answerquestions/{{guest._id}}/plusOne/{{plusOne._id}}" method="POST">
         {{#each questions}}
             <div class="grouped {{isRequired required}} inline fields">
                 <label>{{question}}</label>

@@ -10,7 +10,7 @@ const RSVPLogin = require('../utils/rsvplogin');
 const Boom = require('@hapi/boom');
 const Joi = require('@hapi/joi');
 const ExcelHelper = require('../utils/excelhelper');
-
+const QuestionHelper = require('../utils/questionHelper');
 
 const Guests = {
   addGuest: {
@@ -126,12 +126,19 @@ const Guests = {
         if(guest.rsvpStatus == "yes" && event.questions.length>0){
           showQuestions = true;
         }
+        let questions = event.questions;
+        for(let i = 0 ; i< questions.length;i++){
+          let selected = await QuestionHelper.findAnswer(guest._id, questions[i]._id);
+          if(selected != null) {
+            questions[i].selected = selected;
+          }
+        }
         return h.view('rsvp', {
           title: event.title,
           guest: guest,
           hosts: event.hosts,
           event: event,
-          questions: event.questions,
+          questions: questions,
           showQuestions: showQuestions,
           loggedin: loggedin
         });

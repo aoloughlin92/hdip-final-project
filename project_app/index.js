@@ -72,6 +72,13 @@ hb.registerHelper("formatCalDate", function(date) {
   return moment(date).format(formatToUse);
 });
 
+hb.registerHelper("isRequired", function(value) {
+  if(value){
+    return "required";
+  }
+  return;
+});
+
   hb.registerHelper('ifIsNotZero', function(value, options) {
     if(value === 0) {
       return options.inverse(this);

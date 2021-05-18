@@ -1,0 +1,18 @@
+{{#if loggedin}}
+    {{> mainmenu _id="event" }}
+{{else}}
+    {{> welcomemenu }}
+{{/if}}
+<h1> {{event.title}}</h1>
+<section>
+    <div class="ui grid" style="height: 100vh;">
+        <aside class="three wide column" style="background: lightgrey">
+            {{> guestmenu _id="event" }}
+        </aside>
+        <article class="twelve wide column">
+                <div class="ui segment">
+                    {{>plusoneanswerquestions}}
+                </div>
+        </article>
+    </div>
+</section>

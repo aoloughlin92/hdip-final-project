@@ -39,6 +39,9 @@ module.exports = [
   { method: 'GET', path: '/event/{id}/question/{questionid}', config: Questions.viewQuestion },
   { method: 'GET', path: '/event/{id}/deletequestion/{questionid}', config: Questions.deleteQuestion },
   { method: 'POST', path: '/event/{id}/updatequestion/{questionid}', config: Questions.editQuestion },
+  { method: 'POST',path: '/answerquestions/{id}', config: Questions.answerQuestions},
+  { method: 'GET',path: '/viewquestions/{id}/plusOne/{plusoneid}', config: Questions.showQuestions},
+  { method: 'POST',path: '/answerquestions/{id}/plusOne/{plusoneid}', config: Questions.answerQuestionsPlusOne},
 
 
   { method: 'GET', path: '/guestlist/{id}', config: Guests.guestlist },

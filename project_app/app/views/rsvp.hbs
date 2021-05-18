@@ -53,6 +53,13 @@
                     {{>answerrsvpquestions}}
                 </div>
             {{/if}}
+            <div class="ui segment">
+                <h3>Plus One</h3>
+                {{#each guest.plusOne}}
+                    <a class="button" href="/viewquestions/{{../guest._id}}/plusOne/{{_id}}"><button class="ui pink button">Answer Questions for {{firstName}} {{lastName}}</button></a><br/>
+                    <br/>
+                {{/each}}
+            </div>
         </article>
     </div>
 </section>
