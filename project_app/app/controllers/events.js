@@ -9,6 +9,7 @@ const Question = require('../models/question');
 const EmailHelper = require('../utils/emailHelper');
 const CalculateStats = require('../utils/calculateStats');
 const Stat = require('../models/stat');
+const Answer = require('../models/answer');
 
 const Events = {
   showEvents: {
@@ -71,10 +72,21 @@ const Events = {
     handler: async function(request, h) {
       const eventStatistics = await CalculateStats.calculateToDoStats(request.params.id);
       let event = await Event.findOne({ _id: request.params.id }).populate('questions').populate('stats').lean();
+      let questions = event.questions;
+      for(let i=0; i< questions.length; i++){
+        let answers = await Answer.find({question: questions[i]})
+        for(let j=0;j<questions[i].answers.length; j++){
+          let answer = questions[i].answers[j];
+          let count = answers.filter(function(item){
+            return (JSON.stringify(item.answer) === JSON.stringify(answer))
+          }).length;
+          questions[i].answers[j] = answer+"  :   "+ count + " votes";
+        }
+      }
       return h.view('event', {
         title: event.title,
         event: event,
-        questions: event.questions,
+        questions: questions,
         stats: event.stats,
         grandToDoTotal: event.todos.length,
         eventStatistics: eventStatistics,
@@ -154,8 +166,11 @@ const Events = {
   },
   editEvent:{
     handler: async function(request, h) {
-      console.log(request.payload);
-      let event = await Event.findOne({ _id: request.params.id }).populate('questions').lean();
+      let event = await Event.findOne({ _id: request.params.id });
+      event.title = request.payload.title;
+      event.date = request.payload.date;
+      event.info = request.payload.info;
+      await event.save();
       return h.redirect('/event/'+event._id);
     }
   }
