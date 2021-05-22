@@ -50,10 +50,15 @@ const Tables = {
       let event = await Event.findOne({ _id: request.params.id }).populate('guests').lean();
       let table = await Table.findOne({_id: request.params.tableid}).populate('guests').lean();
       let spaces = table.capacity - table.guests.length;
+      //select only guests who have not been assigned a table
+      let unassignedGuests  = event.guests.filter(function(item){
+        return (item.table == null || item.table==undefined)
+      });
       return h.view('tableview', {
         title: table.name,
         event: event,
         table: table,
+        unassignedGuests: unassignedGuests,
         guests: table.guests,
         spaces: spaces
       });

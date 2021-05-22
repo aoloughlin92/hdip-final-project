@@ -9,7 +9,7 @@
                         <i class="dropdown icon"></i>
                         <div class="default text">Select Guest</div>
                         <div class="menu">
-                            {{#each event.guests}}
+                            {{#each unassignedGuests}}
                                 <div class="item" data-value="{{_id}}">
                                     {{firstName}} {{lastName}}
                                 </div>

@@ -428,6 +428,34 @@ const Guests = {
       }
     }
   },
+  infoRequest:{
+    handler: async function(request, h){
+      try {
+        //todo
+        let plusOne = await Guest.findOne({_id: request.params.plusoneid});
+        plusOne.firstName = request.payload.firstName;
+        plusOne.lastName = request.payload.lastName;
+        await plusOne.save();
+        return h.redirect('/myinfo/'+request.params.guestid);
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  rsvpRequest:{
+    handler: async function(request, h){
+      try {
+        //todo
+        let plusOne = await Guest.findOne({_id: request.params.plusoneid});
+        plusOne.firstName = request.payload.firstName;
+        plusOne.lastName = request.payload.lastName;
+        await plusOne.save();
+        return h.redirect('/myinfo/'+request.params.guestid);
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
 };
 
 module.exports = Guests;
