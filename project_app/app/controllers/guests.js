@@ -10,6 +10,7 @@ const RSVPLogin = require('../utils/rsvplogin');
 const Boom = require('@hapi/boom');
 const Joi = require('@hapi/joi');
 const ExcelHelper = require('../utils/excelhelper');
+const EmailHelper = require('../utils/emailhelper');
 const QuestionHelper = require('../utils/questionHelper');
 
 const Guests = {
@@ -219,6 +220,7 @@ const Guests = {
   showInfo:{
     handler: async function(request, h){
       try {
+        console.log("here");
         let loggedin = RSVPLogin.isUserLoggedIn(request.auth.credentials.id,request.params.id);
         const guest = await Guest.findOne({_id: request.params.id}).populate('plusOne').lean();
         const event = await Event.findOne({guests: request.params.id}).lean();
@@ -302,7 +304,6 @@ const Guests = {
   editGuest:{
     handler: async function(request, h){
       try {
-
         let guest = await Guest.findOne({_id: request.params.guestid});
         guest.firstName = request.payload.firstName;
         guest.lastName = request.payload.lastName;
@@ -428,15 +429,54 @@ const Guests = {
       }
     }
   },
+  viewInfoEmail:{
+    handler: async function(request, h){
+      try {
+        let event = await Event.findById(request.params.id).populate('guests').lean();
+        let guest = event.guests.filter(function(item){
+          return (item.type == 'guest')
+        });
+        return h.view('sendinfoemail', {
+          title: event.title,
+          guest: guest,
+          event: event
+        });
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  viewRSVPEmail:{
+    handler: async function(request, h){
+      try {
+        let event = await Event.findById(request.params.id).populate('guests').lean();
+        let guest = event.guests.filter(function(item){
+          return (item.type == 'guest' && item.rsvpStatus==undefined)
+        });
+        return h.view('sendrsvpemail', {
+          title: event.title,
+          guest: guest,
+          event: event
+        });
+      }catch(err){
+        return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
   infoRequest:{
     handler: async function(request, h){
       try {
-        //todo
-        let plusOne = await Guest.findOne({_id: request.params.plusoneid});
-        plusOne.firstName = request.payload.firstName;
-        plusOne.lastName = request.payload.lastName;
-        await plusOne.save();
-        return h.redirect('/myinfo/'+request.params.guestid);
+        let t = typeof request.payload.selected;
+        if(t == 'string'){
+          EmailHelper.sendInfoEmail(request.payload.selected);
+        }
+        else {
+          for (let i = 0; i < request.payload.selected.length; i++) {
+            let id = request.payload.selected[i];
+            EmailHelper.sendInfoEmail(id);
+          }
+        }
+        return h.redirect('/guestlist/'+request.params.id);
       }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
       }
@@ -445,14 +485,46 @@ const Guests = {
   rsvpRequest:{
     handler: async function(request, h){
       try {
-        //todo
-        let plusOne = await Guest.findOne({_id: request.params.plusoneid});
-        plusOne.firstName = request.payload.firstName;
-        plusOne.lastName = request.payload.lastName;
-        await plusOne.save();
-        return h.redirect('/myinfo/'+request.params.guestid);
+        let t = typeof request.payload.selected;
+        if(t == 'string'){
+           EmailHelper.sendRSVPEmail(request.payload.selected);
+        }
+        else {
+          for (let i = 0; i < request.payload.selected.length; i++) {
+            let id = request.payload.selected[i];
+            EmailHelper.sendRSVPEmail(id);
+          }
+        }
+        return h.redirect('/guestlist/'+request.params.id);
       }catch(err){
         return h.view('main', {errors: [{ message: err.message}] });
+      }
+    }
+  },
+  addInfo:{
+    auth: false,
+    handler: async function(request, h) {
+      try {
+        const id = request.params.id;
+        const guest = await Guest.findById(id);
+        request.cookieAuth.set({ id: guest._id });
+        console.log(guest);
+        return h.redirect('/myinfo/'+ guest._id);
+      } catch (err) {
+        return h.view('main', { errors: [{ message: err.message }] });
+      }
+    }
+  },
+  addRSVP:{
+    auth: false,
+    handler: async function(request, h) {
+      try {
+        const id = request.params.id;
+        const guest = await Guest.findById(id);
+        request.cookieAuth.set({ id: guest._id });
+        return h.redirect('/guest/'+ guest._id);
+      } catch (err) {
+        return h.view('main', { errors: [{ message: err.message }] });
       }
     }
   },

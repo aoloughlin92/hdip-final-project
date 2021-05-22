@@ -1,0 +1,12 @@
+{{> mainmenu _id="event" }}
+<h1>{{event.title}}</h1>
+<section>
+    <div class="ui grid" style="height: 100vh;">
+        <aside class="three wide column" style="background: lightgrey">
+            {{> verticlemenu _id="guestlist" }}
+        </aside>
+        <article class="twelve wide column">
+            {{>selectrsvpguest}}
+        </article>
+    </div>
+</section>

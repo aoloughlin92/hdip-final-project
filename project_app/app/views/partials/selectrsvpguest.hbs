@@ -1,0 +1,26 @@
+<section>
+    <div class="ui grid ">
+        <div class="ui form twenty wide column">
+            <h3>Who do you want to send the email to?</h3>
+            <div>
+                <form action="/sendrsvpemail/{{event._id}}" method="POST">
+                    {{#each guest}}
+                        <div class="field">
+                            <div class="ui checkbox">
+                                <input type="checkbox" name="selected" value="{{_id}}">
+                                <label>{{firstName}} {{lastName}}</label>
+                            </div>
+                        </div>
+                    {{/each}}
+                    <button class="ui pink submit button">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $('.ui.toggle').checkbox({
+        onChecked: function () {  },
+        onUnchecked: function () { }
+    });
+</script>

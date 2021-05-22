@@ -64,6 +64,14 @@ module.exports = [
   { method: 'POST', path: '/guestlist/{id}/guest/{guestid}/addplusone', config: Guests.addPlusOne },
   { method: 'GET', path: '/guestlist/{id}/guest/{guestid}/deleteplusone/{plusoneid}', config: Guests.deletePlusOne },
   { method: 'POST', path: '/guest/{guestid}/editplusone/{plusoneid}', config: Guests.updatePlusOne },
+  { method: 'GET', path: '/event/{id}/sendinfoemail', config: Guests.viewInfoEmail },
+  { method: 'GET', path: '/event/{id}/sendrsvpemail', config: Guests.viewRSVPEmail },
+  { method: 'POST', path: '/sendrsvpemail/{id}', config: Guests.rsvpRequest },
+  { method: 'POST', path: '/sendinfoemail/{id}', config: Guests.infoRequest },
+  { method: 'GET', path: '/guest/addinfo/{id}',config: Guests.addInfo},
+  { method: 'GET', path: '/guest/addrsvp/{id}',config: Guests.addRSVP},
+
+
 
 
   { method: 'GET', path: '/request/{id}', config: Requests.viewRequest },
