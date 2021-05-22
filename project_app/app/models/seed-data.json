@@ -20,6 +20,21 @@
       "password": "secret"
     }
   },
+  "stats": {
+    "_model": "Stat",
+    "homer": {
+      "host": "->users.homer",
+      "hostName": "Homer Simpson"
+    },
+    "marge":{
+      "host": "->users.marge",
+      "hostName": "Marge Simpson"
+    },
+    "bart": {
+      "host": "->users.bart",
+      "hostName": "Bart Simpson"
+    }
+  },
   "events": {
     "_model": "Event",
     "first": {
@@ -30,6 +45,10 @@
       "hosts": [
         "->users.homer",
         "->users.marge"
+      ],
+      "stats": [
+        "->stats.homer",
+        "->stats.marge"
       ],
       "guests": [],
       "todos": [],
@@ -42,6 +61,9 @@
       "shortEventId": "PARTY",
       "hosts": [
         "->users.bart"
+      ],
+      "stats": [
+        "->stats.bart"
       ],
       "guests": [],
       "todos": [],

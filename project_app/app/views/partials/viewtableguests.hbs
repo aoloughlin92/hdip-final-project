@@ -1,0 +1,23 @@
+<section class="ui raised segment">
+    <div class="ui grid">
+        <article class="twenty wide column">
+            <table class="ui celled table segment">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each guests}}
+                    <tr>
+                        <td> {{firstName}} {{lastName}} </td>
+                        <td style="text-align: center">
+                            <a href="/tableplan/{{../event._id}}/table/{{../table._id}}/removeguest/{{_id}}"  class="ui red icon button"> <i class="icon trash"></i></a> </td>
+                    </tr>
+                {{/each}}
+                </tbody>
+            </table>
+        </article>
+    </div>
+</section>

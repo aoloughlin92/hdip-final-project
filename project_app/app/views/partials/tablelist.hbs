@@ -1,0 +1,33 @@
+<section class="ui raised segment">
+    <div class="ui grid">
+        <article class="twenty wide column">
+            <h3> Table List</h3>
+            {{#ifIsNotZero tables.length}}
+                <table class="ui celled table segment">
+                    <thead>
+                    <tr>
+                        <th>Table Name</th>
+                        <th>Capacity</th>
+                        <th>Number of Guests</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each tables}}
+                        <tr>
+                            <td> {{name}} </td>
+                            <td> {{capacity}}</td>
+                            <td> {{guests.length}}</td>
+                            <td><a href="/tableplan/{{../event._id}}/view/{{_id}}"  class="ui green icon button"> <i class="icon folder open"></i></a>
+                            <a href="/tableplan/{{../event._id}}/delete/{{_id}}"  class="ui red icon button"> <i class="icon trash"></i></a>
+                            </td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            {{else}}
+                Nothing to display
+            {{/ifIsNotZero}}
+        </article>
+    </div>
+</section>

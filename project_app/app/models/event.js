@@ -30,6 +30,10 @@ const eventSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Donation'
   }],
+  tables: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Table'
+  }],
   stats:[{
     type: Schema.Types.ObjectId,
     ref: 'Stat'

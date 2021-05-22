@@ -1,0 +1,22 @@
+<div class="ui segment">
+    <div class="ui stacked fluid form segment">
+        <form action="/tableplan/{{event._id}}/edittable/{{table._id}}" method="POST">
+            <h3 class="ui header">Table Info</h3>
+            <div class="two fields">
+                <div class="field">
+                    <label>Name</label> <input value="{{table.name}}" type="text" name="name">
+                </div>
+                <div class="field">
+                    <label>Capacity</label> <input value="{{table.capacity}}" type="text" name="capacity">
+                </div>
+            </div>
+            <button class="ui pink submit button">Save</button>
+        </form>
+        {{> error }}
+        <div>
+            <br/>
+            Available Spaces:  {{spaces}}
+        </div>
+
+    </div>
+</div>

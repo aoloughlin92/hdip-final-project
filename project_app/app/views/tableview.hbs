@@ -1,0 +1,18 @@
+{{> mainmenu _id="event" }}
+<h1>{{table.name}}</h1>
+<section>
+    <div class="ui grid" style="height: 100vh;">
+        <aside class="three wide column" style="background: lightgrey">
+            {{> verticlemenu _id="tableplan" }}
+        </aside>
+        <article class="twelve wide column">
+            {{>viewtableinfo}}
+            {{#ifIsNotZero spaces}}
+                {{>tableaddguest}}
+            {{/ifIsNotZero}}
+            {{#ifIsNotZero table.guests.length}}
+                {{>viewtableguests}}
+            {{/ifIsNotZero}}
+        </article>
+    </div>
+</section>

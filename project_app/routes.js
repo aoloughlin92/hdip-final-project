@@ -6,6 +6,7 @@ const Guests = require('./app/controllers/guests');
 const Requests = require('./app/controllers/requests');
 const Budget = require('./app/controllers/budget');
 const Questions = require('./app/controllers/questions');
+const Tables = require('./app/controllers/tables');
 
 module.exports = [
   { method: 'GET', path: '/', config: Accounts.index },
@@ -68,6 +69,16 @@ module.exports = [
   { method: 'GET', path: '/request/{id}', config: Requests.viewRequest },
   { method: 'GET', path: '/request/decline/{id}', config: Requests.decline},
   { method: 'GET', path: '/request/accept/{id}', config: Requests.accept},
+
+
+  { method: 'GET', path:'/tableplan/{id}', config: Tables.viewTables },
+  { method: 'POST', path:'/tableplan/{id}/addtables', config: Tables.addTables },
+  { method: 'GET', path:'/tableplan/{id}/view/{tableid}', config: Tables.viewTable },
+  { method: 'GET', path:'/tableplan/{id}/delete/{tableid}', config: Tables.deleteTable },
+  { method: 'POST', path:'/tableplan/{id}/addguest/{tableid}', config: Tables.addGuest },
+  { method: 'GET', path:'/tableplan/{id}/table/{tableid}/removeguest/{guestid}', config: Tables.removeGuest},
+  { method: 'POST', path:'/tableplan/{id}/edittable/{tableid}', config: Tables.editTable},
+
 
   { method: 'GET', path: '/budget/{id}', config: Budget.viewBudget},
 

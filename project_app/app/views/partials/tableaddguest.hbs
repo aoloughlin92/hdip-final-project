@@ -1,0 +1,24 @@
+<div class="ui grid ">
+    <div class="ui form twenty wide column">
+        <div class="ui stacked segment">
+            <form action="/tableplan/{{event._id}}/addguest/{{table._id}}" method="POST">
+                <div class="field">
+                    <div class="text">Select Guest<br/></div>
+                    <div class="ui fluid selection dropdown">
+                        <input type="hidden" name="guest">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Select Guest</div>
+                        <div class="menu">
+                            {{#each event.guests}}
+                                <div class="item" data-value="{{_id}}">
+                                    {{firstName}} {{lastName}}
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                <button class="ui pink submit button">Add</button>
+            </form>
+        </div>
+    </div>
+</div>

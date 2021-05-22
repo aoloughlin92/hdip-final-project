@@ -18,6 +18,7 @@ async function seed() {
   const Question = require('./question');
   const Request = require('./request');
   const Todo = require('./todo');
+  const Stat = require('./stat');
   const dbData = await seeder.seed(data, { dropDatabase: false, dropCollections: true });
   //console.log(dbData);
 }
