@@ -10,7 +10,7 @@ const RSVPLogin = require('../utils/rsvplogin');
 const Boom = require('@hapi/boom');
 const Joi = require('@hapi/joi');
 const ExcelHelper = require('../utils/excelhelper');
-const EmailHelper = require('../utils/emailhelper');
+const EmailHelper = require('../utils/emailHelper');
 const QuestionHelper = require('../utils/questionHelper');
 
 const Guests = {
