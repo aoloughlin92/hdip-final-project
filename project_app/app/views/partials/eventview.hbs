@@ -2,6 +2,7 @@
     <div class="ui grid">
         <article class="twenty wide column">
             <b>Date: </b> {{formatDate event.date}}<br/>
+            <b>Event ID:</b>{{event.shortEventId}}
             <br/><b>Information: </b><br/>
             <div style="white-space: pre-wrap;">{{event.info}}</div><br/>
             <a class="ui pink button" href="/event/{{event._id}}/edit">Edit</a>

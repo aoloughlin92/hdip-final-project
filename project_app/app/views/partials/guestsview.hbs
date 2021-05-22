@@ -6,6 +6,7 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Guest ID</th>
                     <th>Status</th>
                     <th>Plus One</th>
                     <th>Options</th>
@@ -16,6 +17,7 @@
                     <tr>
                         <td> {{firstName}} {{lastName}} </td>
                         <td> {{email}} </td>
+                        <td> {{shortGuestId}}</td>
                         <td> {{rsvpStatus}}</td>
                         <td style="text-align: center"><i class="icon user">+{{plusOne.length}}</td>
                         <td style="text-align: center"> <a href="/guestlist/{{../event._id}}/viewguest/{{_id}}"  class="ui green icon button"> <i class="icon folder open"></i></a>
