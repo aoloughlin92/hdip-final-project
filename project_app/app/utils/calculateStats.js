@@ -6,7 +6,7 @@ const Todo = require('../models/todo');
 
 const CalculateStats={
   calculateToDoStats: async function(eventid){
-    const event = await Event.findOne({ _id: eventid}).populate('stats').populate("todos");
+    const event = await Event.findOne({ _id: eventid}).populate('stats').populate("todos").populate("donations").populate("guests");
     for(let i=0; i<event.stats.length;i++){
       const stat = event.stats[i];
       let countNotStarted  = event.todos.filter(function(item){
@@ -35,10 +35,10 @@ const CalculateStats={
       return (item.status == 'complete')
     }).length;
     let totalAttending  = event.guests.filter(function(item){
-      return (item.rsvpStatus == 'attending')
+      return (item.rsvpStatus == 'yes')
     }).length;
     let totalNotAttending  = event.guests.filter(function(item){
-      return (item.rsvpStatus == 'not_attending')
+      return (item.rsvpStatus == 'no')
     }).length;
     let totalNoResponse  = event.guests.filter(function(item){
       return (item.rsvpStatus == undefined || item.rsvpStatus == null )
@@ -51,7 +51,6 @@ const CalculateStats={
     for(let i=0; i<event.todos.length; i++){
       totalBudget = totalBudget+event.todos[i].budget;
     }
-    console.log()
     return {
       totalNotStarted: totalNotStarted,
       totalInProgress: totalInProgress,

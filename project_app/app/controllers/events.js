@@ -110,7 +110,7 @@ const Events = {
         });
         await newRequest.save();
         let subject = user.firstName+ " "+ user.lastName+" has sent you a request to host "+event.title;
-        //await EmailHelper.sendEmail(newRequest, subject); //todo
+        await EmailHelper.sendEmail(newRequest, subject); //todo
         return h.redirect('/event/'+event._id);
       }catch(err){
         return h.redirect('/events', { errors: [{ message: err.message }] });
